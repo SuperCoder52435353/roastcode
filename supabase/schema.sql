@@ -250,18 +250,21 @@ CREATE POLICY "Receipts: authenticated can upload to their folder"
     AND (storage.foldername(name))[1] = auth.uid()::text
   );
 
--- Allow authenticated users to update/overwrite their own receipts
+-- Allow authenticated users to update/overwrite their own receipts (FIXED: cast uid to text)
+DROP POLICY IF EXISTS "Receipts: authenticated can update own objects"
+  ON storage.objects;
+
 CREATE POLICY "Receipts: authenticated can update own objects"
   ON storage.objects
   FOR UPDATE
   TO authenticated
   USING (
     bucket_id = 'receipts'
-    AND owner_id = auth.uid()
+    AND owner_id = auth.uid()::text
   )
   WITH CHECK (
     bucket_id = 'receipts'
-    AND owner_id = auth.uid()
+    AND owner_id = auth.uid()::text
   );
 
 -- ═══════════════════════════════════════════════════════════════
