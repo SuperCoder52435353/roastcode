@@ -230,15 +230,39 @@ CREATE POLICY "Admin can manage settings" ON app_settings
   ));
 
 -- ═══════════════════════════════════════════════════════════════
--- STORAGE BUCKET POLICY (receipts)
+-- STORAGE RLS POLICIES (receipts bucket)
 -- ═══════════════════════════════════════════════════════════════
-INSERT INTO storage.policies (bucket_id, definition, name, check)
-VALUES (
-  'receipts',
-  '{"actor": "authenticated", "action": "select", "resources": ["objects"], "condition": "authenticated"}',
-  'Allow authenticated users to view receipts',
-  'authenticated'
-) ON CONFLICT DO NOTHING;
+
+-- Allow authenticated users to view receipts
+CREATE POLICY "Receipts: authenticated can view"
+  ON storage.objects
+  FOR SELECT
+  TO authenticated
+  USING (bucket_id = 'receipts');
+
+-- Allow authenticated users to upload receipts to their folder (receipts/{uid}/*)
+CREATE POLICY "Receipts: authenticated can upload to their folder"
+  ON storage.objects
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    bucket_id = 'receipts'
+    AND (storage.foldername(name))[1] = auth.uid()::text
+  );
+
+-- Allow authenticated users to update/overwrite their own receipts
+CREATE POLICY "Receipts: authenticated can update own objects"
+  ON storage.objects
+  FOR UPDATE
+  TO authenticated
+  USING (
+    bucket_id = 'receipts'
+    AND owner_id = auth.uid()
+  )
+  WITH CHECK (
+    bucket_id = 'receipts'
+    AND owner_id = auth.uid()
+  );
 
 -- ═══════════════════════════════════════════════════════════════
 -- FUNCTIONS
