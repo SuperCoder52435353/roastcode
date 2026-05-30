@@ -95,8 +95,8 @@ git push -u origin main
 | **Supabase URL** | `https://uqrnqqhxfwtzhdepaiao.supabase.co` |
 | **Project ID** | `uqrnqqhxfwtzhdepaiao` |
 | **Region** | `ap-southeast-2` |
-| **Anon Key** | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcm5xcWh4Znd0emhkZXBhaWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NjUxNjAsImV4cCI6MjA5NTU0MTE2MH0.LxbCVXyolGz74O0jMZcxEPxpSkzEN9vRvhLYjVLNvVA` |
-| **Gemini API Key** | `AIzaSyBsTU-jHG8vV4dm6QxyrIhvPkkiEd_3Lbs` |
+| **Anon Key** | `[See config.js]` |
+| **Gemini API Key** | `[Set in Supabase Secrets]` |
 | **Groq API Key** | [Set in Supabase Secrets] |
 | **Admin Email** | `admin@roastcode.dev` |
 | **Karta** | `5614 6818 1834 6037 (ABDURAXMON MAVLONOV, Humo)` |

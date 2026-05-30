@@ -117,9 +117,9 @@ roastcode/
 
 # 2. Secrets o'rnatish
 supabase secrets set \
-  GEMINI_API_KEY="AIzaSyBsTU-jHG8vV4dm6QxyrIhvPkkiEd_3Lbs" \
-  GROQ_API_KEY="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" \
-  SUPABASE_SERVICE_ROLE_KEY="..." \
+  GEMINI_API_KEY="[YOUR_GEMINI_API_KEY]" \
+  GROQ_API_KEY="[YOUR_GROQ_API_KEY]" \
+  SUPABASE_SERVICE_ROLE_KEY="[YOUR_SERVICE_ROLE_KEY]" \
   --project-ref uqrnqqhxfwtzhdepaiao
 
 # 3. Edge Functions deploy
