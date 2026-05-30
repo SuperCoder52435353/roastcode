@@ -244,6 +244,31 @@ VALUES (
 -- FUNCTIONS
 -- ═══════════════════════════════════════════════════════════════
 
+-- Profile avtomatik yaratish (sign up qilganda)
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, username, full_name, tier)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE((NEW.user_metadata->>'username')::text, 'user_' || substring(NEW.id::text, 1, 8)),
+    COALESCE((NEW.user_metadata->>'full_name')::text, ''),
+    'free'
+  );
+  RETURN NEW;
+END;
+$$;
+
+-- Trigger yangi foydalanuvchi qo'shilganda
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
+
 -- Kunlik counter +1
 CREATE OR REPLACE FUNCTION public.increment_daily_requests(uid UUID)
 RETURNS void
@@ -297,22 +322,34 @@ ON CONFLICT (setting_key) DO NOTHING;
 -- ═══════════════════════════════════════════════════════════════
 -- NOTES:
 -- ═══════════════════════════════════════════════════════════════
+-- 
+-- 🔑 ADMIN CREDENTIALS:
+--    Email: admin@roastcode.dev
+--    Password: PASSWORDABDURAXMON
+--
 -- 1. Admin user yaratish:
 --    - Supabase Dashboard > Authentication > Users > Add User
 --    - Email: admin@roastcode.dev
---    - Password: [o'zingiz tanlang]
+--    - Password: PASSWORDABDURAXMON
 --    
--- 2. Keyin bu SQL execute qil:
+-- 2. Keyin bu SQL execute qil (admin profili yaratish):
 --    INSERT INTO profiles (id, username, full_name, email, tier)
 --    SELECT id, 'admin', 'Abduraxmon Mavlonov', 'admin@roastcode.dev', 'admin'
 --    FROM auth.users WHERE email = 'admin@roastcode.dev';
 --
--- 3. Supabase Cron extension:
+-- 3. Test user yaratish (optional):
+--    Ro'yxatdan o'tish (register) buttonini bosib:
+--    - Full name: Test User
+--    - Username: testuser
+--    - Email: test@roastcode.dev
+--    - Password: Test@123456
+--
+-- 4. Supabase Cron extension (optional):
 --    - Database > Extensions > "pg_cron" > Enable
 --    - Query:
 --      SELECT cron.schedule('reset_daily', '0 0 * * *', 'SELECT public.reset_daily_requests()');
 --
--- 4. Storage receipt upload policy:
+-- 5. Storage receipt upload policy:
 --    - Storage > receipts > Policies > Add policy
 --    - Allow authenticated users to upload: receipts/{uid}/*
 --
