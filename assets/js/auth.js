@@ -532,12 +532,19 @@ function setupKeyboard() {
     if (e.key !== 'Enter') return;
     const target = e.target;
 
-    if (document.getElementById('form-login').contains(target)) {
-      e.preventDefault();
-      handleLogin();
-    } else if (document.getElementById('form-register').contains(target)) {
-      e.preventDefault();
-      handleRegister();
+    // currentTab dan foydalanish (hidden state'ga ishonmang)
+    if (currentTab === 'login') {
+      const formLogin = document.getElementById('form-login');
+      if (formLogin && formLogin.contains(target)) {
+        e.preventDefault();
+        handleLogin();
+      }
+    } else if (currentTab === 'register') {
+      const formRegister = document.getElementById('form-register');
+      if (formRegister && formRegister.contains(target)) {
+        e.preventDefault();
+        handleRegister();
+      }
     }
   });
 }
