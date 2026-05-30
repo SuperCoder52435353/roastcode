@@ -120,12 +120,20 @@ function switchTab(tab) {
 // ── Slider pozitsiyasini hisoblash ────────────────────────────
 function initSlider() {
   const activeBtn = document.querySelector('.auth-tab.active');
-  if (activeBtn) moveSlider(activeBtn);
+  if (!activeBtn) return;
+  moveSlider(activeBtn);
 }
 
 function moveSlider(tabBtn) {
   const slider    = document.getElementById('tab-slider');
   const tabsEl    = document.getElementById('auth-tabs');
+  
+  // ← NULL CHECK: agar elements topilmasa, qayt
+  if (!slider || !tabsEl || !tabBtn) {
+    console.warn('[auth] Slider elements not found:', { slider, tabsEl, tabBtn });
+    return;
+  }
+
   const tabsRect  = tabsEl.getBoundingClientRect();
   const btnRect   = tabBtn.getBoundingClientRect();
 
