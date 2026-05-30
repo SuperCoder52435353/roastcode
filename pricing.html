@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RoastCode — Tarifni tanlang va AI kod review xizmatidan to'liq foydalaning">
+  <title>RoastCode — Tariflar</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/pricing.css">
+</head>
+<body class="pricing-body">
+
+  <!-- Ambient glow -->
+  <div class="pricing-glow-1" aria-hidden="true"></div>
+  <div class="pricing-glow-2" aria-hidden="true"></div>
+
+  <!-- Toast -->
+  <div id="toast-container" role="region" aria-label="Xabarnomalar" aria-live="polite"></div>
+
+
+  <!-- ═══════════════ NAV ════════════════════════════════════ -->
+  <nav class="nav" aria-label="Asosiy navigatsiya">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-icon" aria-hidden="true">🔥</span>
+      <span>RoastCode</span>
+    </a>
+    <div style="margin-left:auto; display:flex; align-items:center; gap:12px;">
+      <a href="app.html" class="btn btn-ghost btn-sm">← Ilovaga qaytish</a>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════ MAIN ══════════════════════════════════ -->
+  <main class="pricing-page" style="position:relative; z-index:1;">
+    <div class="container">
+
+      <!-- Hero -->
+      <div class="pricing-hero">
+        <div class="pricing-eyebrow">
+          <span aria-hidden="true">💰</span>
+          Tariflar
+        </div>
+        <h1 class="pricing-title">
+          O'zingizga mos<br><span>rejimni tanlang</span>
+        </h1>
+        <p class="pricing-sub">
+          Bepuldan boshlang. Kerak bo'lganda upgrade qiling.<br>
+          To'lov — Humo karta, chek orqali manual tasdiqlash.
+        </p>
+      </div>
+
+
+      <!-- ═══════ PRICING CARDS ════════════════════════════ -->
+      <div class="pricing-grid" id="pricing-grid">
+
+        <!-- ── FREE ──────────────────────────────────────── -->
+        <div class="p-card">
+          <div class="p-card-header">
+            <div class="p-card-tier">
+              <span class="p-card-icon" aria-hidden="true">🆓</span>
+              <span class="p-card-name">Free</span>
+            </div>
+            <div class="p-card-price">
+              <span class="p-price-free">Bepul</span>
+              <span class="p-price-period" style="width:100%">Har doim bepul</span>
+            </div>
+          </div>
+
+          <div class="p-card-divider" aria-hidden="true"></div>
+
+          <ul class="p-card-features" aria-label="Free tarif xususiyatlari">
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🔥</span>
+              <span>Roast Mode</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🔧</span>
+              <span>Fix Mode</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">💬</span>
+              <span>Chat Mode</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📊</span>
+              <span>Kunlik so'rovlar</span>
+              <span class="p-feature-val">20</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📄</span>
+              <span>Max qatorlar</span>
+              <span class="p-feature-val">100</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">⚡</span>
+              <span>AI modeli</span>
+              <span class="p-feature-val">Gemini</span>
+            </li>
+          </ul>
+
+          <button
+            class="p-card-btn p-card-btn--free"
+            data-tier="free"
+            onclick="window.location.href='app.html'"
+            aria-label="Free tarifda boshlash"
+          >
+            Boshlash — Bepul
+          </button>
+        </div><!-- /free -->
+
+
+        <!-- ── PRO ───────────────────────────────────────── -->
+        <div class="p-card">
+          <div class="p-card-header">
+            <div class="p-card-tier">
+              <span class="p-card-icon" aria-hidden="true">⚡</span>
+              <span class="p-card-name">Pro</span>
+            </div>
+            <div class="p-card-price">
+              <span class="p-price-usd">$3</span>
+              <span class="p-price-period">/oy</span>
+              <span class="p-price-som">36 000 so'm</span>
+            </div>
+          </div>
+
+          <div class="p-card-divider" aria-hidden="true"></div>
+
+          <ul class="p-card-features" aria-label="Pro tarif xususiyatlari">
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🔥</span>
+              <span>Roast + Fix + Chat</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🚀</span>
+              <span>Tezroq javob</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📊</span>
+              <span>Kunlik so'rovlar</span>
+              <span class="p-feature-val">200</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📄</span>
+              <span>Max qatorlar</span>
+              <span class="p-feature-val">300</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">⚡</span>
+              <span>AI modeli</span>
+              <span class="p-feature-val">Gemini+Groq</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">🎯</span>
+              <span>Priority support</span>
+            </li>
+          </ul>
+
+          <button
+            class="p-card-btn p-card-btn--pro"
+            data-tier="pro"
+            onclick="openPayModal('pro')"
+            aria-label="Pro tarifni sotib olish — oyiga $3"
+          >
+            Sotib olish — $3/oy
+          </button>
+        </div><!-- /pro -->
+
+
+        <!-- ── X (FEATURED) ──────────────────────────────── -->
+        <div class="p-card p-card--featured">
+          <div class="p-card-badge p-card-badge--orange" aria-label="Eng mashhur tarif">
+            🔥 MASHHUR
+          </div>
+
+          <div class="p-card-header">
+            <div class="p-card-tier">
+              <span class="p-card-icon" aria-hidden="true">🔥</span>
+              <span class="p-card-name">X</span>
+            </div>
+            <div class="p-card-price">
+              <span class="p-price-usd">$49</span>
+              <span class="p-price-period">/oy</span>
+              <span class="p-price-som">588 000 so'm</span>
+            </div>
+          </div>
+
+          <div class="p-card-divider" aria-hidden="true"></div>
+
+          <ul class="p-card-features" aria-label="X tarif xususiyatlari">
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🔥</span>
+              <span>Roast + Fix + Chat</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">⚡</span>
+              <span>Eng tez AI modeli</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🎯</span>
+              <span>Kuchli analiz</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📊</span>
+              <span>Kunlik so'rovlar</span>
+              <span class="p-feature-val">1 000</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📄</span>
+              <span>Max qatorlar</span>
+              <span class="p-feature-val">500</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">🏆</span>
+              <span>VIP support</span>
+            </li>
+          </ul>
+
+          <button
+            class="p-card-btn p-card-btn--x"
+            data-tier="x"
+            onclick="openPayModal('x')"
+            aria-label="X tarifni sotib olish — oyiga $49"
+          >
+            Sotib olish — $49/oy
+          </button>
+        </div><!-- /x -->
+
+
+        <!-- ── TEAM ──────────────────────────────────────── -->
+        <div class="p-card p-card--team">
+          <div class="p-card-badge p-card-badge--purple" aria-label="Korporativ tarif">
+            👥 TEAM
+          </div>
+
+          <div class="p-card-header">
+            <div class="p-card-tier">
+              <span class="p-card-icon" aria-hidden="true">👑</span>
+              <span class="p-card-name">Team</span>
+            </div>
+            <div class="p-card-price">
+              <span class="p-price-usd">$99</span>
+              <span class="p-price-period">/oy</span>
+              <span class="p-price-som">1 120 000 so'm</span>
+            </div>
+          </div>
+
+          <div class="p-card-divider" aria-hidden="true"></div>
+
+          <ul class="p-card-features" aria-label="Team tarif xususiyatlari">
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">✨</span>
+              <span>Hamma narsa cheksiz</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">⚡</span>
+              <span>Ustuvor AI routing</span>
+            </li>
+            <li class="p-feature p-feature--highlight">
+              <span class="p-feature-check" aria-hidden="true">🏆</span>
+              <span>Dedicated support</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📊</span>
+              <span>Kunlik so'rovlar</span>
+              <span class="p-feature-val">∞</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📄</span>
+              <span>Max qatorlar</span>
+              <span class="p-feature-val">∞</span>
+            </li>
+            <li class="p-feature">
+              <span class="p-feature-check" aria-hidden="true">📞</span>
+              <span>Telegram orqali bog'lanish</span>
+            </li>
+          </ul>
+
+          <button
+            class="p-card-btn p-card-btn--team"
+            data-tier="team"
+            onclick="openPayModal('team')"
+            aria-label="Team tarifni sotib olish — oyiga $99"
+          >
+            Sotib olish — $99/oy
+          </button>
+        </div><!-- /team -->
+
+      </div><!-- /pricing-grid -->
+
+
+      <!-- Note -->
+      <p class="pricing-note">
+        To'lovdan keyin chek rasmini <strong style="color:var(--text-main)">chat orqali</strong> yuboring.
+        Admin <strong style="color:var(--text-main)">24 soat</strong> ichida tarifingizni faollashtiradi.
+        Savollar uchun: <a href="app.html?chat=open">chat</a> orqali murojaat qiling.
+      </p>
+
+
+      <!-- ═══════ COMPARE TABLE ════════════════════════════ -->
+      <div class="compare-wrap">
+        <h2 class="compare-title">Batafsil taqqoslash</h2>
+        <div style="overflow-x:auto;">
+          <table class="compare-table" aria-label="Tariflar taqqoslov jadvali">
+            <thead>
+              <tr>
+                <th style="text-align:left;">Xususiyat</th>
+                <th>Free</th>
+                <th>Pro</th>
+                <th class="ct-featured">X 🔥</th>
+                <th>Team</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Kunlik so'rovlar</td>
+                <td><span class="ct-val">20</span></td>
+                <td><span class="ct-val">200</span></td>
+                <td class="ct-featured"><span class="ct-val">1 000</span></td>
+                <td><span class="ct-val">∞</span></td>
+              </tr>
+              <tr>
+                <td>Max qatorlar</td>
+                <td><span class="ct-val">100</span></td>
+                <td><span class="ct-val">300</span></td>
+                <td class="ct-featured"><span class="ct-val">500</span></td>
+                <td><span class="ct-val">∞</span></td>
+              </tr>
+              <tr>
+                <td>Roast Mode 🔥</td>
+                <td><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+                <td class="ct-featured"><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+              </tr>
+              <tr>
+                <td>Fix Mode 🔧</td>
+                <td><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+                <td class="ct-featured"><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+              </tr>
+              <tr>
+                <td>Chat Mode 💬</td>
+                <td><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+                <td class="ct-featured"><span class="ct-check">✓</span></td>
+                <td><span class="ct-check">✓</span></td>
+              </tr>
+              <tr>
+                <td>AI modeli</td>
+                <td><span class="ct-val">Gemini</span></td>
+                <td><span class="ct-val">Gemini+Groq</span></td>
+                <td class="ct-featured"><span class="ct-val">Gemini+Groq</span></td>
+                <td><span class="ct-val">Ustuvor</span></td>
+              </tr>
+              <tr>
+                <td>Javob tezligi</td>
+                <td><span class="ct-val">Oddiy</span></td>
+                <td><span class="ct-val">Tez</span></td>
+                <td class="ct-featured"><span class="ct-val">Juda tez</span></td>
+                <td><span class="ct-val">Eng tez</span></td>
+              </tr>
+              <tr>
+                <td>Support</td>
+                <td><span class="ct-dash">—</span></td>
+                <td><span class="ct-val">Priority</span></td>
+                <td class="ct-featured"><span class="ct-val">VIP</span></td>
+                <td><span class="ct-val">Dedicated</span></td>
+              </tr>
+              <tr>
+                <td>Narx (oylik)</td>
+                <td><span class="ct-val">Bepul</span></td>
+                <td><span class="ct-val">$3</span></td>
+                <td class="ct-featured"><span class="ct-val">$49</span></td>
+                <td><span class="ct-val">$99</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+  </main>
+
+
+  <!-- ================================================================
+       PAYMENT MODAL
+  ================================================================ -->
+  <div
+    class="pay-modal-overlay"
+    id="pay-modal-overlay"
+    onclick="handlePayOverlayClick(event)"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="pm-heading"
+    hidden
+  >
+    <div class="pay-modal" id="pay-modal">
+
+      <!-- Header -->
+      <div class="pay-modal-header">
+        <div class="pay-modal-title">
+          <span class="pay-modal-tier">To'lov</span>
+          <h2 class="pay-modal-heading" id="pm-heading">
+            <span id="pm-tier-name">Pro tarifini sotib olish</span>
+          </h2>
+        </div>
+        <button
+          class="pay-modal-close"
+          onclick="closePayModal()"
+          aria-label="Modalni yopish"
+        >×</button>
+      </div>
+
+      <!-- Steps indicator -->
+      <div class="pay-steps" aria-label="Bosqichlar" role="list">
+        <div class="pay-step-dot active" id="step-dot-1" role="listitem" aria-label="1-bosqich: Karta ma'lumotlari"></div>
+        <div class="pay-step-line"       id="step-line"></div>
+        <div class="pay-step-dot"        id="step-dot-2" role="listitem" aria-label="2-bosqich: Tasdiqlash"></div>
+      </div>
+
+
+      <!-- ── STEP 1: Karta ────────────────────────────────── -->
+      <div class="pay-step-1" id="pay-step-1">
+
+        <!-- Amount -->
+        <div class="pay-amount-row">
+          <span class="pay-amount-label">To'lov summasi:</span>
+          <div class="pay-amount-val">
+            <span class="pay-amount-usd" id="pm-amount-usd">$3</span>
+            <span class="pay-amount-som" id="pm-amount-som">36 000 so'm</span>
+          </div>
+        </div>
+
+        <!-- 3D Karta -->
+        <div class="pay-card-scene" role="img" aria-label="Humo karta, bosish orqali aylanadi">
+          <div class="pay-card-3d" id="pay-card-3d">
+
+            <!-- Karta old tomoni -->
+            <div class="pay-card-face pay-card-front">
+              <div class="pay-card-top">
+                <div class="pay-card-chip" aria-hidden="true"></div>
+                <div class="pay-card-logo" aria-label="Humo bank">
+                  <div class="pay-card-logo-circles" aria-hidden="true">
+                    <span></span><span></span>
+                  </div>
+                  HUMO
+                </div>
+              </div>
+              <div class="pay-card-number" aria-label="Karta raqami: 5614 6818 1834 6037">
+                5614&nbsp;&nbsp;6818&nbsp;&nbsp;1834&nbsp;&nbsp;6037
+              </div>
+              <div class="pay-card-bottom">
+                <div>
+                  <div class="pay-card-holder-label">Karta egasi</div>
+                  <div class="pay-card-holder">ABDURAXMON MAVLONOV</div>
+                </div>
+                <div class="pay-card-bank">HUMO</div>
+              </div>
+            </div>
+
+            <!-- Karta orqa tomoni -->
+            <div class="pay-card-face pay-card-back" aria-hidden="true">
+              <div class="pay-card-back-stripe"></div>
+              <div class="pay-card-back-text">
+                To'lovni ushbu karta orqali amalga oshiring
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Copy hint -->
+        <p class="pay-copy-hint" aria-live="polite">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7M7 7h10v10"/>
+          </svg>
+          Kartani bosib aylantirishingiz mumkin
+        </p>
+
+        <!-- Copy button -->
+        <button
+          class="pay-copy-btn"
+          id="pay-copy-btn"
+          onclick="copyCard()"
+          aria-label="Karta raqamini nusxa olish"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          <span>5614 6818 1834 6037 — Nusxa olish</span>
+        </button>
+
+        <!-- Next button -->
+        <button
+          class="pay-next-btn"
+          onclick="showStep2()"
+          aria-label="To'lov qilindim, keyingi bosqich"
+        >
+          <span>To'lov qildim</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+
+      </div><!-- /pay-step-1 -->
+
+
+      <!-- ── STEP 2: Yo'naltirish ──────────────────────────── -->
+      <div class="pay-step-2 hidden" id="pay-step-2">
+
+        <div class="pay-success-icon" aria-hidden="true">✅</div>
+
+        <h3 class="pay-step2-title">Chekni chat orqali yuboring</h3>
+        <p class="pay-step2-sub" id="pm-step2-sub">
+          Chek rasmini <strong>chat orqali</strong> yuboring.<br>
+          Admin <strong>24 soat ichida</strong> tarifingizni faollashtiradi.
+        </p>
+
+        <!-- Info box -->
+        <div class="pay-info-box">
+          <div class="pay-info-row">
+            <span class="pay-info-icon" aria-hidden="true">📎</span>
+            <span>Chatda <strong style="color:var(--text-main)">📎</strong> tugmasini bosing va to'lov chekini yuklang</span>
+          </div>
+          <div class="pay-info-row">
+            <span class="pay-info-icon" aria-hidden="true">⏱️</span>
+            <span>Admin tasdiqlashdan so'ng tarif avtomatik faollashadi va sizga xabar keladi</span>
+          </div>
+          <div class="pay-info-row">
+            <span class="pay-info-icon" aria-hidden="true">❓</span>
+            <span>Savol bo'lsa, chatda admin bilan yozishasiz</span>
+          </div>
+        </div>
+
+        <!-- Chat button -->
+        <button
+          class="pay-chat-btn"
+          onclick="goToChat()"
+          aria-label="Chatga o'tish va chek yuborish"
+        >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <span>💬 Chatga o'tish va chek yuborish</span>
+        </button>
+
+        <!-- Back -->
+        <button
+          class="btn btn-ghost w-full"
+          style="margin-top: -4px;"
+          onclick="_goToStep(1)"
+          aria-label="Orqaga qaytish"
+        >
+          ← Orqaga
+        </button>
+
+      </div><!-- /pay-step-2 -->
+
+    </div><!-- /pay-modal -->
+  </div><!-- /pay-modal-overlay -->
+
+
+  <!-- ═══════════════ SCRIPTS ══════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/pricing.js"></script>
+
+</body>
+</html>

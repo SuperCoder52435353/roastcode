@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RoastCode — AI kod reviewer. Kodingni paste qil, AI kulgili tanqid qiladi va xatolaringni tuzatadi.">
+  <meta name="keywords" content="kod review, AI, roast, fix, dasturlash, o'zbek">
+  <meta property="og:title" content="RoastCode 🔥 — AI Kod Reviewer">
+  <meta property="og:description" content="Kodingni AI qovursin. Xatolaringni kulgi bilan tuzat.">
+  <meta property="og:type" content="website">
+  <title>RoastCode 🔥 — AI Kod Reviewer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/landing.css">
+</head>
+<body class="landing-body">
+
+  <!-- Ambient glows -->
+  <div class="l-glow l-glow-1" aria-hidden="true"></div>
+  <div class="l-glow l-glow-2" aria-hidden="true"></div>
+  <div class="l-glow l-glow-3" aria-hidden="true"></div>
+
+  <!-- Toast -->
+  <div id="toast-container" role="region" aria-live="polite"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAV
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="l-nav" id="l-nav" role="banner">
+    <a href="index.html" class="l-nav-logo" aria-label="RoastCode">
+      <span class="l-nav-logo-icon" aria-hidden="true">🔥</span>
+      <span class="l-nav-logo-text">RoastCode</span>
+    </a>
+
+    <nav class="l-nav-links" aria-label="Asosiy navigatsiya">
+      <a href="#how" class="l-nav-link">Qanday ishlaydi</a>
+      <a href="#features" class="l-nav-link">Xususiyatlar</a>
+      <a href="#pricing" class="l-nav-link">Tariflar</a>
+    </nav>
+
+    <div class="l-nav-right">
+      <a href="login.html" class="l-nav-cta-login" id="nav-login-btn">Kirish</a>
+      <a href="app.html"   class="l-nav-cta-start" id="nav-start-btn">
+        <span>Boshlash</span>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="l-hero" id="hero" aria-label="Bosh sahifa">
+
+    <div class="l-hero-eyebrow" aria-label="Yangilik">
+      <span class="l-eyebrow-dot" aria-hidden="true"></span>
+      AI kod review · O'zbek dasturchilar uchun
+    </div>
+
+    <h1 class="l-hero-title">
+      <span class="l-fire" aria-hidden="true">🔥</span>
+      Kodingni<br>
+      <span class="l-grad">AI qovursin</span>
+    </h1>
+
+    <p class="l-hero-sub">
+      Kodingni paste qil. AI uni kulgili tanqid qiladi,
+      xatolarni topadi va to'g'ri versiyasini beradi.
+      Bepul boshlang.
+    </p>
+
+    <div class="l-hero-ctas">
+      <a href="app.html" class="l-btn-primary" id="hero-start-btn">
+        <span>🔥</span>
+        <span>Bepul boshlash</span>
+      </a>
+      <a href="#how" class="l-btn-secondary">
+        <span>Qanday ishlaydi?</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="l-hero-trust" aria-label="Texnologiyalar">
+      <div class="l-trust-pill">
+        <span class="l-trust-pill-ico">⚡</span>
+        Gemini 1.5 Flash
+      </div>
+      <span class="l-trust-sep" aria-hidden="true"></span>
+      <div class="l-trust-pill">
+        <span class="l-trust-pill-ico">🦙</span>
+        Llama 70B
+      </div>
+      <span class="l-trust-sep" aria-hidden="true"></span>
+      <div class="l-trust-pill">
+        <span class="l-trust-pill-ico">🔒</span>
+        Supabase
+      </div>
+      <span class="l-trust-sep" aria-hidden="true"></span>
+      <div class="l-trust-pill">
+        <span class="l-trust-pill-ico">💻</span>
+        Monaco Editor
+      </div>
+    </div>
+
+    <!-- Code window preview -->
+    <div class="l-hero-window" aria-label="Kod muharrir namunasi" role="img">
+      <div class="l-window-bar">
+        <div class="l-window-dot" aria-hidden="true"></div>
+        <div class="l-window-dot" aria-hidden="true"></div>
+        <div class="l-window-dot" aria-hidden="true"></div>
+        <span class="l-window-title">example.js — RoastCode</span>
+      </div>
+      <div class="l-window-body">
+        <code id="code-preview" aria-hidden="true"></code>
+        <div class="l-window-response" id="window-response" style="opacity:0">
+          <div class="l-response-badge">
+            <span class="l-response-dot" aria-hidden="true"></span>
+            🔥 AI Roast
+          </div>
+          <div class="l-response-text">
+            <span class="l-response-text-inner" id="response-preview"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section><!-- /hero -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TECH STRIP
+       ═══════════════════════════════════════════════════════════ -->
+  <div class="l-tech-strip">
+    <p class="l-tech-label">Qurilgan texnologiyalar</p>
+    <div class="l-tech-list" role="list">
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">🟢</span>
+        Supabase
+      </div>
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">✨</span>
+        Gemini 1.5 Flash
+      </div>
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">🦙</span>
+        Groq Llama 70B
+      </div>
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">💻</span>
+        Monaco Editor
+      </div>
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">📄</span>
+        Vanilla JS
+      </div>
+      <div class="l-tech-item" role="listitem">
+        <span class="l-tech-ico" aria-hidden="true">🐙</span>
+        GitHub Pages
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HOW IT WORKS
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="l-section" id="how" aria-label="Qanday ishlaydi">
+    <div class="container">
+
+      <p class="l-section-eyebrow">Jarayon</p>
+      <div class="l-sep" aria-hidden="true"></div>
+      <h2 class="l-section-title l-reveal">3 qadamda kod review</h2>
+      <p class="l-section-sub l-reveal">Ro'yxatdan o'tish shart emas. Kod yozing va natijani ko'ring.</p>
+
+      <div class="l-steps-grid l-reveal-group">
+
+        <div class="l-step l-reveal">
+          <div class="l-step-num" aria-label="1-qadam">
+            <span aria-hidden="true">📋</span>
+          </div>
+          <div class="l-step-body">
+            <h3 class="l-step-title">Kodingni paste qil</h3>
+            <p class="l-step-desc">
+              Istalgan dasturlash tilida kod yozing yoki joylashtiring.
+              10 ta tilni qo'llab-quvvatlaymiz.
+            </p>
+          </div>
+        </div>
+
+        <div class="l-step l-reveal">
+          <div class="l-step-num" aria-label="2-qadam">
+            <span aria-hidden="true">🎯</span>
+          </div>
+          <div class="l-step-body">
+            <h3 class="l-step-title">Rejimni tanlang</h3>
+            <p class="l-step-desc">
+              🔥 Roast — kulgili tanqid.<br>
+              🔧 Fix — xatolarni tuzatish.<br>
+              💬 Chat — savol-javob.
+            </p>
+          </div>
+        </div>
+
+        <div class="l-step l-reveal">
+          <div class="l-step-num" aria-label="3-qadam">
+            <span aria-hidden="true">🤖</span>
+          </div>
+          <div class="l-step-body">
+            <h3 class="l-step-title">AI tahlil qiladi</h3>
+            <p class="l-step-desc">
+              Gemini va Llama modellari kodingizni chuqur tahlil qilib,
+              foydali natija beradi.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FEATURES
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="l-section" id="features" aria-label="Xususiyatlar">
+    <div class="container">
+
+      <p class="l-section-eyebrow">Xususiyatlar</p>
+      <div class="l-sep" aria-hidden="true"></div>
+      <h2 class="l-section-title l-reveal">Nima uchun RoastCode?</h2>
+      <p class="l-section-sub l-reveal">
+        Oddiy AI assistant emas — dasturchilar uchun maxsus qurilgan platforma.
+      </p>
+
+      <div class="l-features-grid l-reveal-group">
+
+        <div class="l-feature l-feature--hot l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">🔥</div>
+          <h3 class="l-feature-title">Roast Mode</h3>
+          <p class="l-feature-desc">
+            AI kodingizni o'tkir va kulgili tarzda tanqid qiladi.
+            Xatolarni topib, ularni to'g'ridan-to'g'ri ko'rsatadi.
+          </p>
+        </div>
+
+        <div class="l-feature l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">🔧</div>
+          <h3 class="l-feature-title">Fix Mode</h3>
+          <p class="l-feature-desc">
+            Faqat o'zgartirilgan qatorlarni diff formatida qaytaradi.
+            Token tejaydi, natija aniq.
+          </p>
+        </div>
+
+        <div class="l-feature l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">💬</div>
+          <h3 class="l-feature-title">Chat Mode</h3>
+          <p class="l-feature-desc">
+            Har qanday dasturlash savoli. Kod bilan ham, codsiz ham.
+            Tez va aniq javob.
+          </p>
+        </div>
+
+        <div class="l-feature l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">⚡</div>
+          <h3 class="l-feature-title">Tez va Aqlli</h3>
+          <p class="l-feature-desc">
+            Smart routing: oddiy savollar Groq Llama 70B ga,
+            murakkab kod Gemini Flash ga yo'naltiriladi.
+          </p>
+        </div>
+
+        <div class="l-feature l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">🔒</div>
+          <h3 class="l-feature-title">Xavfsiz</h3>
+          <p class="l-feature-desc">
+            API kalitlar faqat Supabase Edge Functions da.
+            Kod siz tasdiqlagunga qadar hech qayerga ketmaydi.
+          </p>
+        </div>
+
+        <div class="l-feature l-reveal">
+          <div class="l-feature-icon" aria-hidden="true">📱</div>
+          <h3 class="l-feature-title">Mobile Qulay</h3>
+          <p class="l-feature-desc">
+            Barcha qurilmalarda ishlaydi. Telefon, planshet yoki
+            kompyuterda bir xil tajriba.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       PRICING PREVIEW
+       ═══════════════════════════════════════════════════════════ -->
+  <section class="l-section" id="pricing" aria-label="Tariflar">
+    <div class="container">
+
+      <p class="l-section-eyebrow">Tariflar</p>
+      <div class="l-sep" aria-hidden="true"></div>
+      <h2 class="l-section-title l-reveal">O'zingizga mos rejimni tanlang</h2>
+      <p class="l-section-sub l-reveal">
+        Bepuldan boshlang, kerak bo'lganda upgrade qiling.
+      </p>
+
+      <div class="l-pricing-grid l-reveal-group">
+
+        <!-- FREE -->
+        <div class="l-price-card l-reveal">
+          <div class="l-price-name">Free</div>
+          <div class="l-price-amount">
+            <sup aria-hidden="true"></sup>Bepul
+          </div>
+          <div class="l-price-som">Har doim bepul</div>
+          <div class="l-price-divider" aria-hidden="true"></div>
+          <ul class="l-price-items" aria-label="Free xususiyatlari">
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📊</span>
+              20 so'rov / kun
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📄</span>
+              100 qatorgacha
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">🔥</span>
+              Roast + Fix + Chat
+            </li>
+          </ul>
+          <a href="app.html" class="l-price-cta l-price-cta--free">Bepul boshlash</a>
+        </div>
+
+        <!-- PRO -->
+        <div class="l-price-card l-reveal">
+          <div class="l-price-name">Pro</div>
+          <div class="l-price-amount">
+            <sup>$</sup>3<span>/oy</span>
+          </div>
+          <div class="l-price-som">36 000 so'm</div>
+          <div class="l-price-divider" aria-hidden="true"></div>
+          <ul class="l-price-items" aria-label="Pro xususiyatlari">
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📊</span>
+              200 so'rov / kun
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📄</span>
+              300 qatorgacha
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">🚀</span>
+              Tezroq javob
+            </li>
+          </ul>
+          <a href="pricing.html" class="l-price-cta l-price-cta--pro">Sotib olish</a>
+        </div>
+
+        <!-- X (FEATURED) -->
+        <div class="l-price-card l-price-card--feat l-reveal" aria-label="Eng mashhur tarif: X">
+          <div class="l-price-name">X</div>
+          <div class="l-price-amount">
+            <sup>$</sup>49<span>/oy</span>
+          </div>
+          <div class="l-price-som">588 000 so'm</div>
+          <div class="l-price-divider" aria-hidden="true"></div>
+          <ul class="l-price-items" aria-label="X xususiyatlari">
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📊</span>
+              1 000 so'rov / kun
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📄</span>
+              500 qatorgacha
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">🏆</span>
+              VIP support
+            </li>
+          </ul>
+          <a href="pricing.html" class="l-price-cta l-price-cta--paid">Sotib olish</a>
+        </div>
+
+        <!-- TEAM -->
+        <div class="l-price-card l-reveal">
+          <div class="l-price-name">Team</div>
+          <div class="l-price-amount">
+            <sup>$</sup>99<span>/oy</span>
+          </div>
+          <div class="l-price-som">1 120 000 so'm</div>
+          <div class="l-price-divider" aria-hidden="true"></div>
+          <ul class="l-price-items" aria-label="Team xususiyatlari">
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">✨</span>
+              Cheksiz so'rovlar
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📄</span>
+              Cheksiz qatorlar
+            </li>
+            <li class="l-price-item">
+              <span class="l-price-item-ico" aria-hidden="true">📞</span>
+              Dedicated support
+            </li>
+          </ul>
+          <a href="pricing.html" class="l-price-cta l-price-cta--team">Sotib olish</a>
+        </div>
+
+      </div>
+
+      <p class="l-pricing-note l-reveal">
+        To'lov Humo karta orqali. Chekni <a href="app.html?chat=open">chat</a> ga yuboring —
+        admin 24 soat ichida tarifingizni faollashtiradi.
+        <br>Savol bo'lsa <a href="app.html?chat=open">chat</a> orqali murojaat qiling.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════════════════════ -->
+  <footer class="l-footer" role="contentinfo">
+    <div class="container">
+      <div class="l-footer-inner">
+
+        <!-- Logo -->
+        <a href="index.html" class="l-footer-logo" aria-label="RoastCode bosh sahifasi">
+          <span class="l-footer-logo-ico" aria-hidden="true">🔥</span>
+          <span class="l-footer-logo-text">RoastCode</span>
+        </a>
+
+        <!-- Links -->
+        <nav class="l-footer-links" aria-label="Footer navigatsiya">
+          <a href="app.html"     class="l-footer-link">App</a>
+          <a href="pricing.html" class="l-footer-link">Tariflar</a>
+          <a href="login.html"   class="l-footer-link">Kirish</a>
+          <a href="app.html?chat=open" class="l-footer-link">Support</a>
+        </nav>
+
+        <div class="l-footer-sep" aria-hidden="true"></div>
+
+        <!-- Copyright -->
+        <p class="l-footer-copy">
+          © 2026 RoastCode. Barcha huquqlar himoyalangan.
+        </p>
+
+        <!-- Powered by -->
+        <div class="l-footer-powered">
+          <button
+            class="l-powered-btn"
+            id="powered-btn"
+            onclick="openFounderModal()"
+            aria-label="Asoschisi haqida ma'lumot"
+          >
+            <span class="l-powered-ico" aria-hidden="true">⚡</span>
+            <span>Powered by Abduraxmon</span>
+          </button>
+          <span class="l-powered-label">Toshkent, O'zbekiston · 2026</span>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOUNDER MODAL
+       ═══════════════════════════════════════════════════════════ -->
+  <div
+    class="founder-modal-overlay"
+    id="founder-modal"
+    onclick="handleFounderOverlay(event)"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="founder-name-el"
+  >
+    <div class="founder-modal" id="founder-modal-box">
+      <button
+        class="founder-modal-close"
+        onclick="closeFounderModal()"
+        aria-label="Modalni yopish"
+      >×</button>
+
+      <!-- Avatar -->
+      <div class="founder-avatar" aria-hidden="true">👨‍💻</div>
+
+      <!-- Name + title -->
+      <h2 class="founder-name" id="founder-name-el">Abduraxmon Mavlonov</h2>
+      <p class="founder-title">RoastCode asoschisi</p>
+
+      <!-- Description -->
+      <p class="founder-desc">
+        RoastCode — o'zbek dasturchilari uchun yaratilgan AI kod review platformasi.
+        Har bir xatolik o'rganish imkoniyati. Har bir kod — yaxshilanish yo'li.
+        Bu loyiha dasturlashni o'rganuvchilar va professional dasturchilar
+        uchun foydali vosita bo'lishi maqsadida yaratilgan.
+      </p>
+
+      <!-- Tech stack -->
+      <p class="founder-tech-title">Texnologiyalar</p>
+      <div class="founder-tech-grid" role="list" aria-label="Ishlatilgan texnologiyalar">
+        <span class="founder-tech-tag" role="listitem">Supabase</span>
+        <span class="founder-tech-tag" role="listitem">Gemini 1.5 Flash</span>
+        <span class="founder-tech-tag" role="listitem">Groq Llama 70B</span>
+        <span class="founder-tech-tag" role="listitem">Monaco Editor</span>
+        <span class="founder-tech-tag" role="listitem">Vanilla JS</span>
+        <span class="founder-tech-tag" role="listitem">GitHub Pages</span>
+        <span class="founder-tech-tag" role="listitem">Edge Functions</span>
+      </div>
+
+      <!-- Meta stats -->
+      <div class="founder-meta">
+        <div class="founder-meta-item">
+          <span class="founder-meta-val">2026</span>
+          <span class="founder-meta-label">Yaratilgan</span>
+        </div>
+        <div class="founder-meta-sep" aria-hidden="true"></div>
+        <div class="founder-meta-item">
+          <span class="founder-meta-val">4</span>
+          <span class="founder-meta-label">Tarif</span>
+        </div>
+        <div class="founder-meta-sep" aria-hidden="true"></div>
+        <div class="founder-meta-item">
+          <span class="founder-meta-val">3</span>
+          <span class="founder-meta-label">AI Mode</span>
+        </div>
+        <div class="founder-meta-sep" aria-hidden="true"></div>
+        <div class="founder-meta-item">
+          <span class="founder-meta-val">∞</span>
+          <span class="founder-meta-label">Imkoniyat</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script>
+  'use strict';
+
+  // ═══════════════════════════════════════════════════════════
+  //  SESSION CHECK — login bo'lsa CTA ni o'zgartirish
+  // ═══════════════════════════════════════════════════════════
+  (async function checkSession() {
+    try {
+      const sb = supabase.createClient(RC_CONFIG.supabase.url, RC_CONFIG.supabase.anonKey);
+      const { data: { session } } = await sb.auth.getSession();
+
+      if (session?.user) {
+        // Logged in → CTA ni o'zgartirish
+        const startBtn  = document.getElementById('hero-start-btn');
+        const navStart  = document.getElementById('nav-start-btn');
+        const navLogin  = document.getElementById('nav-login-btn');
+
+        if (startBtn) {
+          startBtn.textContent = '🚀 App ga kirish';
+          startBtn.href = 'app.html';
+        }
+        if (navStart) {
+          navStart.innerHTML = '<span>App ga kirish</span>';
+          navStart.href = 'app.html';
+        }
+        if (navLogin) navLogin.style.display = 'none';
+      }
+    } catch (_e) {
+      // Supabase mavjud bo'lmasa — hech narsa qilmaydi
+    }
+  })();
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  NAV SCROLL EFFECT
+  // ═══════════════════════════════════════════════════════════
+  const lNav = document.getElementById('l-nav');
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        lNav?.classList.toggle('scrolled', window.scrollY > 40);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  SMOOTH SCROLL (anchor links)
+  // ═══════════════════════════════════════════════════════════
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.getElementById(link.getAttribute('href').slice(1));
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  CODE WINDOW TYPING ANIMATION
+  // ═══════════════════════════════════════════════════════════
+  const CODE_LINES = [
+    { html: '<span class="l-code-c">// Funksiya natija qaytarmaydi</span>', delay: 0 },
+    { html: '<span class="l-code-k">function</span> <span class="l-code-fn">calculateSum</span><span class="l-code-p">(</span>a<span class="l-code-p">,</span> b<span class="l-code-p">) {</span>', delay: 120 },
+    { html: '  <span class="l-code-k">const</span> result <span class="l-code-p">=</span> a <span class="l-code-p">+</span> b<span class="l-code-p">;</span>', delay: 200 },
+    { html: '  <span class="l-code-c">// return qilishni unutdim 😅</span>', delay: 280 },
+    { html: '<span class="l-code-p">}</span>', delay: 340 },
+    { html: '', delay: 380 },
+    { html: '<span class="l-code-k">const</span> x <span class="l-code-p">=</span> <span class="l-code-fn">calculateSum</span><span class="l-code-p">(</span><span class="l-code-n">5</span><span class="l-code-p">,</span> <span class="l-code-n">3</span><span class="l-code-p">);</span>', delay: 420 },
+    { html: '<span class="l-code-fn">console</span><span class="l-code-p">.</span><span class="l-code-fn">log</span><span class="l-code-p">(</span>x<span class="l-code-p">);</span> <span class="l-code-c">// undefined 😱</span>', delay: 500 },
+  ];
+
+  const RESPONSE_TEXTS = [
+    '🔥 Aka, return yozishni unutibsiz! Bu "undefined simulator"...',
+    '🐛 XATO: return statement yo\'q — funksiya undefined qaytaradi',
+    '✅ PATCH: return result; — qo\'shish kifoya!',
+  ];
+
+  function initCodeAnimation() {
+    const preview = document.getElementById('code-preview');
+    const respEl  = document.getElementById('response-preview');
+    const winResp = document.getElementById('window-response');
+    if (!preview || !respEl || !winResp) return;
+
+    // Qatorlarni yaratish
+    CODE_LINES.forEach(({ html, delay }) => {
+      setTimeout(() => {
+        const span = document.createElement('span');
+        span.className = 'l-code-line visible';
+        span.innerHTML = html || '&nbsp;';
+        preview.appendChild(span);
+      }, delay * 3 + 600);
+    });
+
+    // Response ko'rsatish
+    const lastDelay = (CODE_LINES[CODE_LINES.length - 1].delay * 3) + 600 + 800;
+    setTimeout(() => {
+      winResp.style.transition = 'opacity 0.5s ease';
+      winResp.style.opacity = '1';
+
+      let lineIdx = 0;
+      function showNextLine() {
+        if (lineIdx >= RESPONSE_TEXTS.length) return;
+        respEl.textContent = RESPONSE_TEXTS[lineIdx];
+        lineIdx++;
+        setTimeout(showNextLine, 1800);
+      }
+      showNextLine();
+    }, lastDelay);
+  }
+
+  // Page load uchun
+  window.addEventListener('load', () => {
+    setTimeout(initCodeAnimation, 400);
+  });
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  SCROLL REVEAL (IntersectionObserver)
+  // ═══════════════════════════════════════════════════════════
+  const revealObserver = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+
+  document.querySelectorAll('.l-reveal').forEach(el => {
+    revealObserver.observe(el);
+  });
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  FOUNDER MODAL
+  // ═══════════════════════════════════════════════════════════
+  function openFounderModal() {
+    const overlay = document.getElementById('founder-modal');
+    if (!overlay) return;
+    overlay.removeAttribute('hidden');
+    requestAnimationFrame(() => overlay.classList.add('open'));
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', _escCloseFounder);
+  }
+
+  function closeFounderModal() {
+    const overlay = document.getElementById('founder-modal');
+    if (!overlay) return;
+    overlay.classList.remove('open');
+    overlay.addEventListener('transitionend', () => {
+      overlay.setAttribute('hidden', '');
+    }, { once: true });
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', _escCloseFounder);
+  }
+
+  function handleFounderOverlay(e) {
+    const box = document.getElementById('founder-modal-box');
+    if (box && !box.contains(e.target)) closeFounderModal();
+  }
+
+  function _escCloseFounder(e) {
+    if (e.key === 'Escape') closeFounderModal();
+  }
+
+
+  // ═══════════════════════════════════════════════════════════
+  //  TOAST (minimal — landing uchun)
+  // ═══════════════════════════════════════════════════════════
+  function showToast(msg, type, icon) {
+    const c = document.getElementById('toast-container');
+    if (!c) return;
+    const t = document.createElement('div');
+    t.className = 'toast toast--' + (type || 'info');
+    t.innerHTML =
+      '<span class="toast-icon">' + (icon || 'ℹ️') + '</span>' +
+      '<div class="toast-body"><div class="toast-msg">' + msg + '</div></div>';
+    c.appendChild(t);
+    const remove = () => {
+      t.classList.add('out');
+      t.addEventListener('animationend', () => t.remove(), { once: true });
+    };
+    const timer = setTimeout(remove, 3200);
+    t.addEventListener('click', () => { clearTimeout(timer); remove(); });
+  }
+
+  </script>
+
+</body>
+</html>

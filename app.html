@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RoastCode — AI kod tahlilovchisi">
+  <title>RoastCode — App</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="app-body" data-mode="roast">
+
+  <!-- ═══════════════ TOP NAV ═══════════════════════════════ -->
+  <nav class="app-nav" id="app-nav" role="navigation">
+
+    <!-- Logo -->
+    <a href="index.html" class="nav-logo app-nav-logo" aria-label="RoastCode bosh sahifasi">
+      <span class="logo-icon" aria-hidden="true">🔥</span>
+      <span class="logo-text">RoastCode</span>
+    </a>
+
+    <!-- Mode tabs (markazda) -->
+    <div class="mode-tabs" id="mode-tabs" role="tablist" aria-label="Ish rejimi">
+      <button
+        class="mode-btn active"
+        id="mode-roast"
+        role="tab"
+        data-mode="roast"
+        aria-selected="true"
+        onclick="setMode('roast')"
+      >
+        <span aria-hidden="true">🔥</span>
+        <span>Roast</span>
+      </button>
+      <button
+        class="mode-btn"
+        id="mode-fix"
+        role="tab"
+        data-mode="fix"
+        aria-selected="false"
+        onclick="setMode('fix')"
+      >
+        <span aria-hidden="true">🔧</span>
+        <span>Fix</span>
+      </button>
+      <button
+        class="mode-btn"
+        id="mode-chat"
+        role="tab"
+        data-mode="chat"
+        aria-selected="false"
+        onclick="setMode('chat')"
+      >
+        <span aria-hidden="true">💬</span>
+        <span>Chat</span>
+      </button>
+    </div>
+
+    <!-- O'ng tomon: token + tier + user -->
+    <div class="nav-right">
+
+      <!-- Token progress -->
+      <div class="token-wrap" id="token-wrap" title="Bugungi so'rovlar soni">
+        <span class="token-text" id="token-text">0/20</span>
+        <div class="token-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="token-bar-wrap">
+          <div class="token-fill" id="token-fill"></div>
+        </div>
+      </div>
+
+      <!-- Tier badge -->
+      <span class="tier-badge free" id="user-tier-badge" aria-label="Tarif: Free">FREE</span>
+
+      <!-- User menu -->
+      <div class="user-dropdown-wrap" id="user-dropdown-wrap">
+        <button
+          class="user-avatar"
+          id="user-avatar"
+          onclick="toggleUserMenu()"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Foydalanuvchi menyu"
+        >?</button>
+
+        <div class="user-menu" id="user-menu" role="menu" hidden>
+          <div class="user-menu-profile">
+            <div class="user-menu-name" id="menu-username">—</div>
+            <div class="user-menu-email" id="menu-email">—</div>
+          </div>
+          <div class="dropdown-sep"></div>
+          <button class="dropdown-item" role="menuitem" onclick="goToPricing()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+            Tarifni yaxshilash
+          </button>
+          <button class="dropdown-item dropdown-item--danger" role="menuitem" onclick="signOut()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Chiqish
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </nav><!-- /app-nav -->
+
+
+  <!-- ═══════════════ MAIN SPLIT LAYOUT ═════════════════════ -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- ─── LEFT: Editor Panel ─────────────────────────────── -->
+    <section class="editor-panel" id="editor-panel" aria-label="Kod muharrir">
+
+      <!-- Panel header -->
+      <div class="panel-header" id="editor-panel-header">
+        <div class="ph-left">
+          <!-- Language selector -->
+          <div class="lang-select-wrap">
+            <svg class="lang-select-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+            </svg>
+            <select class="lang-select" id="lang-select" aria-label="Dasturlash tili" onchange="onLangChange(this.value)">
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="cpp">C++</option>
+              <option value="csharp">C#</option>
+              <option value="go">Go</option>
+              <option value="rust">Rust</option>
+              <option value="php">PHP</option>
+              <option value="sql">SQL</option>
+            </select>
+          </div>
+          <span class="line-counter" id="line-counter" aria-live="polite">0 qator</span>
+        </div>
+        <div class="ph-right">
+          <button class="ph-btn" onclick="pasteCode()" title="Clipboard dan" aria-label="Clipboard dan qo'yish">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+              <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            </svg>
+          </button>
+          <button class="ph-btn ph-btn--danger" onclick="clearEditor()" title="Tozalash" aria-label="Editordagi kodni tozalash">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Monaco container -->
+      <div class="editor-container" id="monaco-editor" aria-label="Monaco kod muharriri"></div>
+
+      <!-- Limit indicator bar (agar qator limit bo'lsa) -->
+      <div class="limit-bar hidden" id="limit-bar">
+        <span class="limit-bar-text" id="limit-bar-text"></span>
+      </div>
+
+      <!-- Submit footer -->
+      <div class="editor-footer" id="editor-footer">
+
+        <!-- Chat mode: inline question input -->
+        <div class="chat-question-row hidden" id="chat-question-row">
+          <input
+            type="text"
+            class="input chat-question-input"
+            id="chat-question"
+            placeholder="💬 Savolingizni yozing (ixtiyoriy)..."
+            autocomplete="off"
+            maxlength="500"
+          >
+        </div>
+
+        <!-- Main submit button -->
+        <button class="submit-btn" id="submit-btn" onclick="submitCode()" aria-live="polite">
+          <span class="submit-icon" id="submit-icon" aria-hidden="true">🔥</span>
+          <span class="submit-label" id="submit-label">Roast qil!</span>
+          <span class="submit-shortcut" aria-hidden="true">⌘↵</span>
+          <span class="submit-spinner hidden" aria-hidden="true">
+            <span class="spinner spinner-sm spinner-white"></span>
+          </span>
+        </button>
+
+      </div>
+    </section><!-- /editor-panel -->
+
+    <!-- Divider -->
+    <div class="panels-divider" aria-hidden="true"></div>
+
+    <!-- ─── RIGHT: Response Panel ──────────────────────────── -->
+    <section class="response-panel" id="response-panel" aria-label="AI javobi" aria-live="polite">
+
+      <!-- Panel header -->
+      <div class="panel-header" id="response-panel-header">
+        <div class="ph-left">
+          <span class="response-mode-tag" id="response-mode-tag">
+            <span id="resp-mode-icon" aria-hidden="true">🔥</span>
+            <span id="resp-mode-text">Roast natijasi</span>
+          </span>
+          <!-- Streaming indicator -->
+          <span class="streaming-badge hidden" id="streaming-badge" role="status" aria-label="Javob yozilmoqda">
+            <span class="s-dot" aria-hidden="true"></span>
+            <span>Yozilmoqda...</span>
+          </span>
+        </div>
+        <div class="ph-right" id="response-actions" hidden>
+          <button class="ph-btn" id="copy-resp-btn" onclick="copyResponse()" title="Nusxa olish" aria-label="Javobni nusxa olish">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span>Nusxa</span>
+          </button>
+          <button class="ph-btn" onclick="clearResponse()" title="Tozalash" aria-label="Javobni tozalash">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Response content area -->
+      <div class="response-content" id="response-content">
+
+        <!-- Empty state (boshlang'ich) -->
+        <div class="response-empty" id="response-empty">
+          <div class="re-glow" aria-hidden="true">🔥</div>
+          <h2 class="re-title">Kodingizni yozing</h2>
+          <p class="re-sub">Chap panelga kod qo'ying va rejim tanlang</p>
+          <div class="re-tips">
+            <div class="re-tip">
+              <span class="re-tip-icon" aria-hidden="true">🔥</span>
+              <div>
+                <strong>Roast</strong>
+                <p>AI kodingizni kulgili tanqid qiladi, xatolarni ko'rsatadi</p>
+              </div>
+            </div>
+            <div class="re-tip">
+              <span class="re-tip-icon" aria-hidden="true">🔧</span>
+              <div>
+                <strong>Fix</strong>
+                <p>Xatolarni topib, faqat o'zgargan qatorlarni qaytaradi</p>
+              </div>
+            </div>
+            <div class="re-tip">
+              <span class="re-tip-icon" aria-hidden="true">💬</span>
+              <div>
+                <strong>Chat</strong>
+                <p>Har qanday dasturlash savoli — tez va aniq javob</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AI response renders here (marked.js + DOMPurify) -->
+        <div class="response-text hidden" id="response-text"></div>
+
+      </div>
+    </section><!-- /response-panel -->
+
+  </div><!-- /app-layout -->
+
+
+  <!-- ═══════════════ CHAT SIDEBAR ══════════════════════════ -->
+  <aside
+    class="chat-sidebar"
+    id="chat-sidebar"
+    aria-label="Support chat"
+    aria-hidden="true"
+    role="complementary"
+  >
+    <div class="chat-header">
+      <div class="chat-title">
+        <span aria-hidden="true">💬</span>
+        <span>Yordam / Support</span>
+      </div>
+      <button
+        class="btn-chat-close"
+        onclick="toggleChat()"
+        aria-label="Chatni yopish"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="chat-messages" id="chat-messages" role="log" aria-live="polite" aria-label="Chat xabarlari">
+      <!-- Welcome -->
+      <div class="chat-welcome" id="chat-welcome">
+        <span class="chat-welcome-emoji" aria-hidden="true">👋</span>
+        <p>Salom! Qanday yordam kerak?</p>
+        <p class="chat-welcome-hint">To'lov cheki yuborish uchun <strong>📎</strong> bosing</p>
+      </div>
+      <!-- Messages inject here via chat.js -->
+    </div>
+
+    <div class="chat-footer">
+      <div class="chat-input-row">
+        <!-- File attach -->
+        <label class="btn-file-attach" title="Rasm / chek yuklash" aria-label="Fayl yuklash">
+          <input
+            type="file"
+            id="chat-file"
+            accept="image/*,application/pdf"
+            hidden
+            onchange="handleFileUpload(event)"
+          >
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+          </svg>
+        </label>
+        <!-- Text input -->
+        <input
+          type="text"
+          class="input chat-text-input"
+          id="chat-msg-input"
+          placeholder="Xabar yozing..."
+          autocomplete="off"
+          maxlength="1000"
+        >
+        <!-- Send -->
+        <button
+          class="btn-send"
+          id="chat-send-btn"
+          onclick="sendChatMessage()"
+          aria-label="Xabar yuborish"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Chat backdrop -->
+  <div
+    class="chat-backdrop hidden"
+    id="chat-backdrop"
+    onclick="toggleChat()"
+    aria-hidden="true"
+  ></div>
+
+  <!-- ═══════════════ FAB ════════════════════════════════════ -->
+  <button
+    class="fab"
+    id="chat-fab"
+    onclick="toggleChat()"
+    aria-label="Support chat"
+    aria-haspopup="true"
+  >
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="fab-badge hidden" id="fab-badge" aria-label="O'qilmagan xabarlar">0</span>
+  </button>
+
+
+  <!-- ═══════════════ UPGRADE MODAL ═════════════════════════ -->
+  <div
+    class="modal-overlay"
+    id="upgrade-modal"
+    onclick="handleUpgradeOverlayClick(event)"
+    aria-modal="true"
+    role="dialog"
+    aria-labelledby="upgrade-title"
+    hidden
+  >
+    <div class="modal modal-upgrade" id="upgrade-modal-box">
+      <button class="modal-close" onclick="closeUpgradeModal()" aria-label="Yopish">×</button>
+
+      <div class="upgrade-body">
+        <div class="upgrade-emoji" aria-hidden="true">🚀</div>
+        <h2 class="upgrade-title" id="upgrade-title">Kunlik limit tugadi</h2>
+        <p class="upgrade-sub">
+          Bugungi bepul so'rovlar tugadi.<br>
+          Davom etish uchun tarifni yaxshilang.
+        </p>
+
+        <div class="upgrade-plans">
+          <a href="pricing.html" class="u-plan">
+            <div class="u-plan-header">
+              <span class="u-plan-name">⚡ Pro</span>
+              <span class="u-plan-price">$3 <span class="u-plan-period">/oy</span></span>
+            </div>
+            <ul class="u-plan-features">
+              <li>✓ 200 so'rov / kun</li>
+              <li>✓ 300 qatorgacha</li>
+              <li>✓ Tezroq javob</li>
+            </ul>
+          </a>
+
+          <a href="pricing.html" class="u-plan u-plan--featured">
+            <div class="u-plan-badge">🔥 MASHHUR</div>
+            <div class="u-plan-header">
+              <span class="u-plan-name">X</span>
+              <span class="u-plan-price">$49 <span class="u-plan-period">/oy</span></span>
+            </div>
+            <ul class="u-plan-features">
+              <li>✓ 1000 so'rov / kun</li>
+              <li>✓ 500 qatorgacha</li>
+              <li>✓ Barcha funksiyalar</li>
+            </ul>
+          </a>
+        </div>
+
+        <button class="btn btn-ghost w-full" style="margin-top:16px" onclick="closeUpgradeModal()">
+          Keyinroq
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════ TOAST ═════════════════════════════════ -->
+  <div id="toast-container" role="region" aria-label="Xabarnomalar" aria-live="polite"></div>
+
+
+  <!-- ═══════════════ SCRIPTS ══════════════════════════════ -->
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <!-- Markdown parser + sanitizer -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+  <!-- Config -->
+  <script src="assets/js/config.js"></script>
+  <!-- Monaco Editor AMD loader -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.min.js"></script>
+  <!-- App logic (faza 5) -->
+  <script src="assets/js/app.js"></script>
+  <!-- Chat logic (faza 8) -->
+  <script src="assets/js/chat.js"></script>
+
+</body>
+</html>

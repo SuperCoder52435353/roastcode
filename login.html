@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RoastCode — Kirish yoki ro'yxatdan o'tish">
+  <title>RoastCode — Kirish</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/auth.css">
+</head>
+<body class="auth-body">
+
+  <!-- Animated particle background -->
+  <canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" role="region" aria-label="Xabarnomalar" aria-live="polite"></div>
+
+  <main class="auth-wrap">
+
+    <!-- Logo -->
+    <a href="index.html" class="auth-logo animate-fade-in-down" tabindex="0">
+      <span class="auth-logo-icon" aria-hidden="true">🔥</span>
+      <span class="auth-logo-text">RoastCode</span>
+    </a>
+
+    <!-- ── MAIN CARD ────────────────────────────────────── -->
+    <div class="auth-card" id="auth-card" role="main">
+
+      <div class="auth-card-header">
+        <h1 class="auth-card-title" id="auth-title">Xush kelibsiz 👋</h1>
+        <p class="auth-card-sub" id="auth-sub">Davom etish uchun hisobga kiring</p>
+      </div>
+
+      <!-- Tab switcher -->
+      <div class="auth-tabs" role="tablist" aria-label="Kirish yoki ro'yxatdan o'tish">
+        <div class="auth-tab-slider" id="tab-slider" aria-hidden="true"></div>
+        <button
+          class="auth-tab active"
+          id="tab-login"
+          role="tab"
+          aria-selected="true"
+          aria-controls="form-login"
+          onclick="switchTab('login')"
+        >Kirish</button>
+        <button
+          class="auth-tab"
+          id="tab-register"
+          role="tab"
+          aria-selected="false"
+          aria-controls="form-register"
+          onclick="switchTab('register')"
+        >Ro'yxatdan o'tish</button>
+      </div>
+
+      <!-- ── LOGIN FORM ──────────────────────────────────── -->
+      <div class="auth-form" id="form-login" role="tabpanel" aria-labelledby="tab-login">
+
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email manzil</label>
+          <div class="input-wrap">
+            <span class="input-icon-left" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input
+              type="email"
+              class="input has-icon-left"
+              id="login-email"
+              placeholder="sizning@email.com"
+              autocomplete="email"
+              spellcheck="false"
+            >
+          </div>
+          <span class="field-error" id="err-login-email" role="alert" hidden></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="login-pass">Parol</label>
+          <div class="input-wrap">
+            <span class="input-icon-left" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input
+              type="password"
+              class="input has-icon-left has-icon-right"
+              id="login-pass"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            >
+            <button type="button" class="btn-eye" id="eye-login" onclick="togglePass('login-pass','eye-login')" aria-label="Parolni ko'rsatish">
+              <svg class="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-hide" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <span class="field-error" id="err-login-pass" role="alert" hidden></span>
+        </div>
+
+        <div class="auth-options-row">
+          <label class="custom-check">
+            <input type="checkbox" id="remember-me">
+            <span class="check-mark"></span>
+            <span class="check-label">Meni eslab qol</span>
+          </label>
+        </div>
+
+        <div class="global-error" id="err-login-global" role="alert" hidden></div>
+
+        <button type="button" class="btn btn-primary btn-lg w-full" id="login-btn" onclick="handleLogin()">
+          <span class="btn-label">Kirish</span>
+          <span class="btn-spin hidden"><span class="spinner spinner-sm spinner-white"></span></span>
+        </button>
+
+        <p class="auth-alt-text">
+          Hisobingiz yo'qmi?
+          <button type="button" class="text-link" onclick="switchTab('register')">Ro'yxatdan o'ting →</button>
+        </p>
+
+      </div><!-- /form-login -->
+
+      <!-- ── REGISTER FORM ────────────────────────────────── -->
+      <div class="auth-form hidden" id="form-register" role="tabpanel" aria-labelledby="tab-register">
+
+        <div class="form-row-2">
+          <div class="form-group">
+            <label class="form-label" for="reg-name">To'liq ism</label>
+            <div class="input-wrap">
+              <span class="input-icon-left" aria-hidden="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              <input type="text" class="input has-icon-left" id="reg-name"
+                placeholder="Ism Familiya" autocomplete="name" autocorrect="off">
+            </div>
+            <span class="field-error" id="err-reg-name" role="alert" hidden></span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-username">Username</label>
+            <div class="input-wrap">
+              <span class="input-icon-left input-at" aria-hidden="true">@</span>
+              <input type="text" class="input has-icon-left" id="reg-username"
+                placeholder="username" autocomplete="username"
+                autocorrect="off" autocapitalize="none" spellcheck="false">
+            </div>
+            <span class="field-error" id="err-reg-username" role="alert" hidden></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email manzil</label>
+          <div class="input-wrap">
+            <span class="input-icon-left" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <input type="email" class="input has-icon-left" id="reg-email"
+              placeholder="sizning@email.com" autocomplete="email" spellcheck="false">
+          </div>
+          <span class="field-error" id="err-reg-email" role="alert" hidden></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="reg-pass">Parol</label>
+          <div class="input-wrap">
+            <span class="input-icon-left" aria-hidden="true">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+              </svg>
+            </span>
+            <input type="password" class="input has-icon-left has-icon-right" id="reg-pass"
+              placeholder="Kamida 8 ta belgi" autocomplete="new-password"
+              oninput="onPasswordInput(this.value)">
+            <button type="button" class="btn-eye" id="eye-reg" onclick="togglePass('reg-pass','eye-reg')" aria-label="Parolni ko'rsatish">
+              <svg class="eye-show" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg class="eye-hide" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <!-- Password strength meter -->
+          <div class="pass-strength" id="pass-strength" hidden>
+            <div class="pass-strength-track">
+              <div class="pass-strength-fill" id="pass-strength-fill"></div>
+            </div>
+            <span class="pass-strength-label" id="pass-strength-label"></span>
+          </div>
+          <span class="field-error" id="err-reg-pass" role="alert" hidden></span>
+        </div>
+
+        <div class="global-error" id="err-reg-global" role="alert" hidden></div>
+
+        <button type="button" class="btn btn-primary btn-lg w-full" id="register-btn" onclick="handleRegister()">
+          <span class="btn-label">Ro'yxatdan o'tish</span>
+          <span class="btn-spin hidden"><span class="spinner spinner-sm spinner-white"></span></span>
+        </button>
+
+        <p class="auth-alt-text">
+          Hisobingiz bormi?
+          <button type="button" class="text-link" onclick="switchTab('login')">← Kirish</button>
+        </p>
+
+      </div><!-- /form-register -->
+
+    </div><!-- /auth-card -->
+
+    <p class="auth-footer animate-fade-in delay-5">
+      <span class="text-dim">© 2025 RoastCode · Powered by</span>
+      <a href="index.html#founder" class="text-muted hover-orange"> Abduraxmon</a>
+    </p>
+
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/auth.js"></script>
+
+</body>
+</html>

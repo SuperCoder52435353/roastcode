@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RoastCode — Admin Panel">
+  <meta name="robots" content="noindex,nofollow">
+  <title>RoastCode — Admin</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ADMIN NAV — QIZIL GRADIENT
+       ═══════════════════════════════════════════════════════════ -->
+  <header class="admin-nav" id="admin-nav" role="banner">
+
+    <!-- Logo -->
+    <a href="index.html" class="admin-nav-logo" aria-label="RoastCode bosh sahifasi">
+      <span class="logo-icon" aria-hidden="true">🔥</span>
+      <span class="logo-text">RoastCode</span>
+      <span class="admin-nav-badge">ADMIN</span>
+    </a>
+
+    <!-- Nav links -->
+    <nav class="admin-nav-links" id="admin-nav-links" role="navigation" aria-label="Admin bo'limlari">
+
+      <button class="admin-nav-link active" data-section="dashboard" onclick="showSection('dashboard')">
+        <svg class="anl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+        </svg>
+        <span>Dashboard</span>
+      </button>
+
+      <button class="admin-nav-link" data-section="users" onclick="showSection('users')">
+        <svg class="anl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Foydalanuvchilar</span>
+      </button>
+
+      <button class="admin-nav-link" data-section="payments" onclick="showSection('payments')">
+        <svg class="anl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+          <line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <span>To'lovlar</span>
+        <span class="admin-nav-count hidden" id="pending-count" aria-label="Pending to'lovlar soni">0</span>
+      </button>
+
+      <button class="admin-nav-link" data-section="chats" onclick="showSection('chats')">
+        <svg class="anl-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        <span>Chatlar</span>
+        <span class="admin-nav-count hidden" id="chat-unread-count" aria-label="O'qilmagan xabarlar">0</span>
+      </button>
+
+    </nav>
+
+    <!-- Right: refresh + avatar -->
+    <div class="admin-nav-right">
+
+      <div class="admin-refresh" id="admin-refresh" title="Keyingi yangilanish">
+        <svg class="refresh-icon" id="refresh-spin-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="23 4 23 10 17 10"/>
+          <polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        <span class="refresh-timer" id="refresh-timer">30s</span>
+      </div>
+
+      <div class="admin-user-wrap" id="admin-user-wrap">
+        <button
+          class="user-avatar admin-avatar"
+          id="admin-avatar"
+          onclick="toggleAdminUserMenu()"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Admin menyu"
+        >A</button>
+
+        <div class="dropdown-menu admin-user-menu" id="admin-user-menu" hidden>
+          <div class="admin-menu-profile">
+            <div class="admin-menu-name" id="admin-menu-name">admin</div>
+            <div class="admin-menu-email" id="admin-menu-email">admin@roastcode.dev</div>
+            <span class="tier-badge admin" style="margin-top:6px; align-self:flex-start">ADMIN</span>
+          </div>
+          <div class="dropdown-sep"></div>
+          <a href="app.html" class="dropdown-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+              <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            App ga o'tish
+          </a>
+          <button class="dropdown-item dropdown-item--danger" onclick="adminLogout()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+              <polyline points="16 17 21 12 16 7"/>
+              <line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Chiqish
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </header><!-- /admin-nav -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN CONTENT
+       ═══════════════════════════════════════════════════════════ -->
+  <main class="admin-main" id="admin-main">
+
+
+    <!-- ── Loading screen ────────────────────────────────────── -->
+    <div class="admin-loading" id="admin-loading" aria-live="polite" aria-busy="true">
+      <div class="admin-loading-inner">
+        <div class="admin-loading-logo" aria-hidden="true">🔥</div>
+        <div class="spinner spinner-lg"></div>
+        <p class="admin-loading-text">Tekshirilmoqda...</p>
+      </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 1: DASHBOARD
+         ══════════════════════════════════════════════════════════ -->
+    <section
+      class="admin-section hidden"
+      id="section-dashboard"
+      data-section="dashboard"
+      role="region"
+      aria-label="Dashboard"
+    >
+
+      <div class="admin-section-head">
+        <div>
+          <h1 class="admin-section-title">Dashboard</h1>
+          <span class="admin-last-updated" id="last-updated" aria-live="polite">Yangilanmagan</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="manualRefresh()" aria-label="Yangilash">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+          Yangilash
+        </button>
+      </div>
+
+      <!-- Stat cards: 4 ustun -->
+      <div class="admin-stats-grid">
+
+        <article class="stat-card">
+          <div class="stat-card-icon" aria-hidden="true">👥</div>
+          <div class="stat-card-body">
+            <div class="stat-card-value" id="stat-total-users">
+              <span class="skeleton stat-skeleton"></span>
+            </div>
+            <div class="stat-card-label">Jami Foydalanuvchilar</div>
+          </div>
+        </article>
+
+        <article class="stat-card stat-card--warning">
+          <div class="stat-card-icon" aria-hidden="true">⏳</div>
+          <div class="stat-card-body">
+            <div class="stat-card-value" id="stat-pending-count">
+              <span class="skeleton stat-skeleton"></span>
+            </div>
+            <div class="stat-card-label">Pending To'lovlar</div>
+          </div>
+          <button class="stat-card-cta" onclick="showSection('payments')" aria-label="To'lovlarga o'tish">
+            Ko'rish →
+          </button>
+        </article>
+
+        <article class="stat-card stat-card--success">
+          <div class="stat-card-icon" aria-hidden="true">⚡</div>
+          <div class="stat-card-body">
+            <div class="stat-card-value" id="stat-active-today">
+              <span class="skeleton stat-skeleton"></span>
+            </div>
+            <div class="stat-card-label">Bugun Faol</div>
+          </div>
+        </article>
+
+        <article class="stat-card stat-card--blue">
+          <div class="stat-card-icon" aria-hidden="true">🔥</div>
+          <div class="stat-card-body">
+            <div class="stat-card-value" id="stat-requests-today">
+              <span class="skeleton stat-skeleton"></span>
+            </div>
+            <div class="stat-card-label">Bugungi So'rovlar</div>
+          </div>
+        </article>
+
+      </div><!-- /admin-stats-grid -->
+
+      <!-- Dashboard: tier taqsimoti + so'nggi to'lovlar -->
+      <div class="admin-dash-row">
+
+        <!-- Tier bars -->
+        <div class="card admin-tier-card">
+          <h3 class="admin-card-title">Tier taqsimoti</h3>
+          <div class="tier-bars" id="tier-bars" aria-label="Tier taqsimoti grafigi">
+
+            <div class="tier-bar-row">
+              <div class="tier-bar-lbl"><span class="tier-badge free">FREE</span></div>
+              <div class="tier-bar-track">
+                <div class="tier-bar-fill tier-fill--free" id="bar-free" style="width:0%"></div>
+              </div>
+              <span class="tier-bar-cnt" id="count-free">—</span>
+            </div>
+
+            <div class="tier-bar-row">
+              <div class="tier-bar-lbl"><span class="tier-badge pro">PRO</span></div>
+              <div class="tier-bar-track">
+                <div class="tier-bar-fill tier-fill--pro" id="bar-pro" style="width:0%"></div>
+              </div>
+              <span class="tier-bar-cnt" id="count-pro">—</span>
+            </div>
+
+            <div class="tier-bar-row">
+              <div class="tier-bar-lbl"><span class="tier-badge x">X</span></div>
+              <div class="tier-bar-track">
+                <div class="tier-bar-fill tier-fill--x" id="bar-x" style="width:0%"></div>
+              </div>
+              <span class="tier-bar-cnt" id="count-x">—</span>
+            </div>
+
+            <div class="tier-bar-row">
+              <div class="tier-bar-lbl"><span class="tier-badge team">TEAM</span></div>
+              <div class="tier-bar-track">
+                <div class="tier-bar-fill tier-fill--team" id="bar-team" style="width:0%"></div>
+              </div>
+              <span class="tier-bar-cnt" id="count-team">—</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- So'nggi to'lovlar -->
+        <div class="card admin-recent-card">
+          <div class="flex-between mb-4">
+            <h3 class="admin-card-title">So'nggi to'lovlar</h3>
+            <button class="btn btn-ghost btn-sm" onclick="showSection('payments')">Hammasi →</button>
+          </div>
+          <div id="dash-recent-payments" aria-live="polite">
+            <div class="loading-state" style="padding: 32px 0">
+              <div class="spinner spinner-sm"></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /admin-dash-row -->
+
+    </section><!-- /section-dashboard -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 2: USERS
+         ══════════════════════════════════════════════════════════ -->
+    <section
+      class="admin-section hidden"
+      id="section-users"
+      data-section="users"
+      role="region"
+      aria-label="Foydalanuvchilar"
+    >
+
+      <div class="admin-section-head">
+        <div>
+          <h1 class="admin-section-title">Foydalanuvchilar</h1>
+          <span class="admin-section-sub" id="users-count-label" aria-live="polite">Yuklanmoqda...</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="admin-controls-bar">
+        <div class="admin-search-wrap">
+          <svg class="admin-search-ico" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="search"
+            class="input admin-search-input"
+            id="user-search"
+            placeholder="Username yoki email..."
+            oninput="debouncedLoadUsers()"
+            autocomplete="off"
+            aria-label="Foydalanuvchi qidirish"
+          >
+        </div>
+        <select class="select admin-ctrl-sel" id="tier-filter" onchange="loadUsers()" aria-label="Tier filtr">
+          <option value="">Barcha tierlar</option>
+          <option value="free">Free</option>
+          <option value="pro">Pro</option>
+          <option value="x">X</option>
+          <option value="team">Team</option>
+        </select>
+        <select class="select admin-ctrl-sel" id="status-filter" onchange="loadUsers()" aria-label="Holat filtr">
+          <option value="">Barcha holat</option>
+          <option value="active">Faol</option>
+          <option value="banned">Bloklangan</option>
+        </select>
+      </div>
+
+      <!-- Table -->
+      <div class="admin-table-wrap">
+        <table class="admin-table" aria-label="Foydalanuvchilar jadvali">
+          <thead>
+            <tr>
+              <th scope="col">Foydalanuvchi</th>
+              <th scope="col">Email</th>
+              <th scope="col">Tier</th>
+              <th scope="col">So'rovlar</th>
+              <th scope="col">Holat</th>
+              <th scope="col">Sana</th>
+              <th scope="col">Amallar</th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody" aria-live="polite">
+            <tr>
+              <td colspan="7">
+                <div class="loading-state"><div class="spinner"></div></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </section><!-- /section-users -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 3: PAYMENTS
+         ══════════════════════════════════════════════════════════ -->
+    <section
+      class="admin-section hidden"
+      id="section-payments"
+      data-section="payments"
+      role="region"
+      aria-label="To'lovlar"
+    >
+
+      <div class="admin-section-head">
+        <div>
+          <h1 class="admin-section-title">To'lovlar</h1>
+          <span class="admin-section-sub" id="payments-count-label" aria-live="polite">Yuklanmoqda...</span>
+        </div>
+        <select class="select admin-ctrl-sel" id="payment-status-filter" onchange="loadPayments()" aria-label="To'lov holati filtr">
+          <option value="pending">⏳ Pending</option>
+          <option value="approved">✅ Tasdiqlangan</option>
+          <option value="rejected">❌ Rad etilgan</option>
+          <option value="">Hammasi</option>
+        </select>
+      </div>
+
+      <div class="payments-grid" id="payments-grid" aria-live="polite">
+        <div class="loading-state"><div class="spinner"></div></div>
+      </div>
+
+    </section><!-- /section-payments -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         SECTION 4: CHATS — TELEGRAM USLUBI
+         ══════════════════════════════════════════════════════════ -->
+    <section
+      class="admin-section admin-section--chat hidden"
+      id="section-chats"
+      data-section="chats"
+      role="region"
+      aria-label="Chatlar"
+    >
+
+      <div class="admin-chat-layout">
+
+        <!-- Left: user list -->
+        <aside class="admin-chat-users-panel" aria-label="Chat foydalanuvchilari ro'yxati">
+
+          <div class="admin-chat-panel-hdr">
+            <div class="admin-chat-panel-title">
+              <span>💬 Chatlar</span>
+              <span class="admin-nav-count hidden" id="chat-panel-unread">0</span>
+            </div>
+            <div class="admin-search-wrap admin-search-wrap--sm">
+              <svg class="admin-search-ico" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input
+                type="search"
+                class="input admin-search-input admin-search-input--sm"
+                id="chat-user-search"
+                placeholder="Qidirish..."
+                oninput="filterChatUsers(this.value)"
+                autocomplete="off"
+                aria-label="Chat foydalanuvchi qidirish"
+              >
+            </div>
+          </div>
+
+          <div class="admin-chat-user-list" id="chat-user-list" aria-live="polite">
+            <div class="loading-state"><div class="spinner"></div></div>
+          </div>
+
+        </aside>
+
+        <!-- Right: chat view -->
+        <div class="admin-chat-view-panel" id="admin-chat-view-panel">
+
+          <!-- Empty state -->
+          <div class="admin-chat-empty" id="admin-chat-empty">
+            <span class="admin-chat-empty-ico" aria-hidden="true">💬</span>
+            <p class="admin-chat-empty-title">Foydalanuvchi tanlang</p>
+            <p class="admin-chat-empty-sub">Chap ro'yxatdan foydalanuvchi tanlang</p>
+          </div>
+
+          <!-- Active chat (hidden until user selected) -->
+          <div class="admin-chat-active hidden" id="admin-chat-active">
+
+            <!-- Chat header -->
+            <div class="admin-chat-view-hdr" id="admin-chat-view-hdr">
+              <!-- admin.js renders: avatar, name, tier badge, actions -->
+            </div>
+
+            <!-- Messages -->
+            <div
+              class="admin-chat-messages"
+              id="admin-chat-messages"
+              role="log"
+              aria-live="polite"
+              aria-label="Chat xabarlari"
+            ></div>
+
+            <!-- Admin composer (qizil) -->
+            <div class="admin-chat-composer">
+              <div class="admin-composer-label" aria-label="Admin xabari belgisi">
+                <span class="admin-msg-badge">🔴 ADMIN XABARI</span>
+              </div>
+              <div class="admin-composer-row">
+                <input
+                  type="text"
+                  class="input admin-composer-input"
+                  id="admin-msg-input"
+                  placeholder="Foydalanuvchiga xabar yozing..."
+                  maxlength="1000"
+                  autocomplete="off"
+                  aria-label="Admin xabar matni"
+                >
+                <button
+                  class="btn btn-danger admin-composer-send"
+                  id="admin-send-btn"
+                  onclick="sendAdminMessageFromInput()"
+                  aria-label="Xabar yuborish"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                  <span>Yuborish</span>
+                </button>
+              </div>
+            </div>
+
+          </div><!-- /admin-chat-active -->
+
+        </div><!-- /admin-chat-view-panel -->
+
+      </div><!-- /admin-chat-layout -->
+
+    </section><!-- /section-chats -->
+
+
+  </main><!-- /admin-main -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODAL 1: TIER O'ZGARTIRISH
+       ═══════════════════════════════════════════════════════════ -->
+  <div
+    class="modal-overlay"
+    id="tier-modal"
+    onclick="handleTierModalOverlay(event)"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="tier-modal-title"
+    hidden
+  >
+    <div class="modal modal-lg" id="tier-modal-box">
+      <button class="modal-close" onclick="closeTierModal()" aria-label="Yopish">×</button>
+      <h3 class="modal-title" id="tier-modal-title">Tier o'zgartirish</h3>
+
+      <!-- User info (admin.js renders) -->
+      <div class="admin-modal-user-info" id="tier-modal-user-info"></div>
+
+      <div class="form-group" style="margin-top: var(--space-5)">
+        <label class="form-label">Yangi tier tanlang</label>
+        <div class="tier-option-grid" id="tier-option-grid">
+
+          <button class="tier-option-btn" data-tier="free" onclick="selectTierOption('free')">
+            <span class="tier-badge free">FREE</span>
+            <span class="tier-opt-info">Bepul · 20 req/kun</span>
+          </button>
+
+          <button class="tier-option-btn" data-tier="pro" onclick="selectTierOption('pro')">
+            <span class="tier-badge pro">PRO</span>
+            <span class="tier-opt-info">$3/oy · 200 req/kun</span>
+          </button>
+
+          <button class="tier-option-btn" data-tier="x" onclick="selectTierOption('x')">
+            <span class="tier-badge x">X</span>
+            <span class="tier-opt-info">$49/oy · 1000 req/kun</span>
+          </button>
+
+          <button class="tier-option-btn" data-tier="team" onclick="selectTierOption('team')">
+            <span class="tier-badge team">TEAM</span>
+            <span class="tier-opt-info">$99/oy · Cheksiz</span>
+          </button>
+
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-success flex-1" id="tier-save-btn" onclick="confirmTierChange()" disabled>
+          ✅ Saqlash
+        </button>
+        <button class="btn btn-ghost" onclick="closeTierModal()">Bekor</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODAL 2: TO'LOVNI RAD ETISH
+       ═══════════════════════════════════════════════════════════ -->
+  <div
+    class="modal-overlay"
+    id="reject-modal"
+    onclick="handleRejectModalOverlay(event)"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="reject-modal-title"
+    hidden
+  >
+    <div class="modal" id="reject-modal-box">
+      <button class="modal-close" onclick="closeRejectModal()" aria-label="Yopish">×</button>
+      <h3 class="modal-title" id="reject-modal-title">❌ To'lovni rad etish</h3>
+      <p class="text-muted" style="font-size:13px; margin-bottom: var(--space-4); line-height:1.6">
+        Foydalanuvchiga sabab yozilgan xabar yuboriladi.
+      </p>
+      <div class="form-group">
+        <label class="form-label" for="reject-reason">Sabab (ixtiyoriy)</label>
+        <textarea
+          class="textarea"
+          id="reject-reason"
+          placeholder="Masalan: Chek rasmi noaniq, to'lov summasi mos emas..."
+          rows="3"
+          maxlength="400"
+        ></textarea>
+        <span class="form-hint">Bo'sh qoldirsangiz standart xabar yuboriladi</span>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger flex-1" onclick="confirmReject()">
+          ❌ Rad etish
+        </button>
+        <button class="btn btn-ghost" onclick="closeRejectModal()">Bekor</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODAL 3: CHEK RASMI KATTALASHTIRISH
+       ═══════════════════════════════════════════════════════════ -->
+  <div
+    class="modal-overlay receipt-modal-overlay"
+    id="receipt-modal"
+    onclick="closeReceiptModal()"
+    role="dialog"
+    aria-modal="true"
+    aria-label="To'lov cheki"
+    hidden
+  >
+    <div class="receipt-modal-inner" onclick="event.stopPropagation()">
+      <button class="receipt-modal-close" onclick="closeReceiptModal()" aria-label="Yopish">×</button>
+      <img id="receipt-modal-img" src="" alt="To'lov cheki rasmi" class="receipt-modal-img">
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MODAL 4: UNIVERSAL TASDIQLASH
+       ═══════════════════════════════════════════════════════════ -->
+  <div
+    class="modal-overlay"
+    id="confirm-modal"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="confirm-title"
+    hidden
+  >
+    <div class="modal confirm-modal-box" id="confirm-modal-box">
+      <div class="confirm-modal-icon" id="confirm-icon" aria-hidden="true">⚠️</div>
+      <h3 class="modal-title" id="confirm-title">Tasdiqlaysizmi?</h3>
+      <p class="confirm-modal-msg" id="confirm-msg"></p>
+      <div class="modal-footer">
+        <button class="btn flex-1" id="confirm-yes-btn" onclick="_confirmYes()">Tasdiqlash</button>
+        <button class="btn btn-ghost" onclick="_confirmNo()">Bekor</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TOAST
+       ═══════════════════════════════════════════════════════════ -->
+  <div id="toast-container" role="region" aria-live="polite" aria-label="Xabarnomalar"></div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+       ═══════════════════════════════════════════════════════════ -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/admin.js"></script>
+
+</body>
+</html>
