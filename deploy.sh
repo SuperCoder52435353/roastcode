@@ -25,9 +25,10 @@ PROJECT_REF="uqrnqqhxfwtzhdepaiao"
 PROJECT_URL="https://uqrnqqhxfwtzhdepaiao.supabase.co"
 
 # API KEYS (ushbu yo'lda saqlanadi)
-GEMINI_API_KEY="AIzaSyBsTU-jHG8vV4dm6QxyrIhvPkkiEd_3Lbs"
-GROQ_API_KEY="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"
-SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcm5xcWh4Znd0emhkZXBhaWFvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTk2NTE2MCwiZXhwIjoyMDk1NTQxMTYwfQ.N9XPVj4_mfLhvLb8866kXnC_rEcQ8xdIg9c1EkFFzJc"
+# ⚠️  API KEYS XAVFLI! Bu yerda o'zingizning keylaringizni o'rnatish kerak
+GEMINI_API_KEY="[YOUR_GEMINI_API_KEY]"
+GROQ_API_KEY="[YOUR_GROQ_API_KEY]"
+SUPABASE_SERVICE_ROLE_KEY="[YOUR_SERVICE_ROLE_KEY]"
 
 # ── STEP 1: Supabase CLI ni o'rnatish ──────────────────────
 echo -e "${BLUE}[1/5]${NC} Supabase CLI ni tekshiryapman..."
@@ -65,9 +66,9 @@ echo ""
 echo "Supabase CLI orqali secrets o'rnatish:"
 echo ""
 echo "$ supabase secrets set \\"
-echo "    GEMINI_API_KEY=$GEMINI_API_KEY \\"
-echo "    GROQ_API_KEY=$GROQ_API_KEY \\"
-echo "    SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY \\"
+echo "    GEMINI_API_KEY=[YOUR_KEY] \\"
+echo "    GROQ_API_KEY=[YOUR_KEY] \\"
+echo "    SUPABASE_SERVICE_ROLE_KEY=[YOUR_KEY] \\"
 echo "    --project-ref $PROJECT_REF"
 echo ""
 read -p "Bu buyruqni terminal da ishlattingmi? (y/n) " -n 1 -r

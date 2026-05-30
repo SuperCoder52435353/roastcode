@@ -44,6 +44,8 @@ const response = await fetch(
 
 **URL:** `https://uqrnqqhxfwtzhdepaiao.supabase.co/functions/v1/ai-router`
 
+⚠️ **Note:** API keylar xavfli bo'lganidagi sababli faqat client-side (browser) da Supabase anon key ishlatiladi. Gemini/Groq keylar faqat Edge Function da Supabase Secrets da saqlang!
+
 ### REQUEST
 
 ```json

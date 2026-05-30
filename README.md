@@ -5,6 +5,8 @@
 **RoastCode** — o'zbek dasturchilari uchun yaratilgan AI-powered kod review platformasi.  
 Kodni paste qil → Roast/Fix/Chat rejimini tanlang → AI tahlil qiladi!
 
+⚠️ **API keylar xavfli, shuning uchun GitHub da yo'q. Supabase Secrets da saqlang!**
+
 ---
 
 ## 🎯 XUSUSIYATLAR

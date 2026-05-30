@@ -41,9 +41,9 @@ Terminal ochib, quyidagi buyruqni ishlat:
 
 ```bash
 supabase secrets set \
-  GEMINI_API_KEY="AIzaSyBsTU-jHG8vV4dm6QxyrIhvPkkiEd_3Lbs" \
-  GROQ_API_KEY="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" \
-  SUPABASE_SERVICE_ROLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcm5xcWh4Znd0emhkZXBhaWFvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3OTk2NTE2MCwiZXhwIjoyMDk1NTQxMTYwfQ.N9XPVj4_mfLhvLb8866kXnC_rEcQ8xdIg9c1EkFFzJc" \
+  GEMINI_API_KEY="[YOUR_GEMINI_API_KEY]" \
+  GROQ_API_KEY="[YOUR_GROQ_API_KEY]" \
+  SUPABASE_SERVICE_ROLE_KEY="[YOUR_SERVICE_ROLE_KEY]" \
   --project-ref uqrnqqhxfwtzhdepaiao
 ```
 
@@ -97,7 +97,7 @@ git push -u origin main
 | **Region** | `ap-southeast-2` |
 | **Anon Key** | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcm5xcWh4Znd0emhkZXBhaWFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5NjUxNjAsImV4cCI6MjA5NTU0MTE2MH0.LxbCVXyolGz74O0jMZcxEPxpSkzEN9vRvhLYjVLNvVA` |
 | **Gemini API Key** | `AIzaSyBsTU-jHG8vV4dm6QxyrIhvPkkiEd_3Lbs` |
-| **Groq API Key** | `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` |
+| **Groq API Key** | [Set in Supabase Secrets] |
 | **Admin Email** | `admin@roastcode.dev` |
 | **Karta** | `5614 6818 1834 6037 (ABDURAXMON MAVLONOV, Humo)` |
 
