@@ -259,7 +259,7 @@
 /* Chat section: full bleed (no padding from .admin-main) */
 .admin-section--chat {
   margin            : calc(-1 * var(--space-6));
-  height            : calc(100vh - var(--nav-height));
+  height            : calc(100vh - var(--nav-height) - (var(--space-6) * 2));
   overflow          : hidden;
   animation         : none;
 }

@@ -12,9 +12,7 @@
 function initChat(sb, user) {
   // _sb va _user app.js tomonidan global scope da o'rnatilgan.
   // Bu funksiya faqat explicit initialization uchun (kelajak uchun).
-  if (process?.env?.NODE_ENV !== 'production') {
-    console.log('[chat] initChat uid:', user?.id || 'no-user');
-  }
+  console.log('[chat] initChat uid:', user?.id || 'no-user');
 }
 
 // ================================================================

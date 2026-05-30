@@ -66,7 +66,16 @@ function switchTab(tab) {
   const outBtn  = document.getElementById(`tab-${currentTab}`);
   const inBtn   = document.getElementById(`tab-${tab}`);
 
-  // Tab tugmalarini yangilash
+  if (!outForm || !inForm || !outBtn || !inBtn) {
+    console.error('[auth] Form elements not found for tab:', tab);
+    return;
+  }
+
+  // ── AVVAL currentTab yangilash (keyingi bosishlarda to'g'ri bo'lish uchun) ──
+  const prevTab = currentTab;
+  currentTab = tab;
+
+  // Tab tugmalar
   outBtn.classList.remove('active');
   outBtn.setAttribute('aria-selected', 'false');
   inBtn.classList.add('active');
@@ -76,38 +85,36 @@ function switchTab(tab) {
   moveSlider(inBtn);
 
   // Sarlavha yangilash
-  if (tab === 'login') {
-    document.getElementById('auth-title').textContent = 'Xush kelibsiz 👋';
-    document.getElementById('auth-sub').textContent   = 'Hisobingizga kiring';
-  } else {
-    document.getElementById('auth-title').textContent = 'Yangi hisob yarating 🚀';
-    document.getElementById('auth-sub').textContent   = 'Bepul boshlang';
-  }
+  const texts = {
+    login:    { title: 'Xush kelibsiz 👋',       sub: 'Hisobingizga kiring' },
+    register: { title: 'Yangi hisob yarating 🚀', sub: 'Bepul boshlang' }
+  };
+  document.getElementById('auth-title').textContent = texts[tab].title;
+  document.getElementById('auth-sub').textContent   = texts[tab].sub;
 
-  // Eski formni chiqarish
-  outForm.classList.add('form-exiting');
+  // Xatolarni tozalash (eski tab uchun)
+  clearFormErrors(prevTab);
 
-  const DURATION = 180;
+  // ── ANIMATSIYA LOGIC ──
+  // Eski form-ni TEZDA yashirish (animatsiyasiz)
+  outForm.classList.add('hidden');
+  outForm.classList.remove('form-exiting', 'form-entering');
+
+  // Yangi form-ni ko'rsatish (animatsiya bilan)
+  inForm.classList.remove('hidden', 'form-exiting', 'form-entering');
+  inForm.offsetHeight; // reflow (force repaint)
+  inForm.classList.add('form-entering');
+
+  // Animatsiya tugaganda class olib tashlash
   setTimeout(() => {
-    outForm.classList.add('hidden');
-    outForm.classList.remove('form-exiting');
-    clearFormErrors(currentTab);
+    inForm.classList.remove('form-entering');
+  }, 250);
 
-    // Yangi formni kiritish
-    currentTab = tab;
-    inForm.classList.remove('hidden');
-    inForm.classList.add('form-entering');
-
-    // Birinchi inputga focus
+  // Birinchi input-ga focus
+  requestAnimationFrame(() => {
     const firstInput = inForm.querySelector('input');
-    if (firstInput) requestAnimationFrame(() => firstInput.focus());
-
-    // Animatsiya tugadi → class olib tashlash
-    inForm.addEventListener('animationend', () => {
-      inForm.classList.remove('form-entering');
-    }, { once: true });
-
-  }, DURATION);
+    if (firstInput) firstInput.focus();
+  });
 }
 
 // ── Slider pozitsiyasini hisoblash ────────────────────────────
@@ -439,7 +446,10 @@ function clearFormErrors(formPrefix) {
 
   // Global error
   const globalEl = document.getElementById(`err-${formPrefix}-global`);
-  if (globalEl) globalEl.hidden = true;
+  if (globalEl) {
+    globalEl.textContent = '';
+    globalEl.hidden = true;
+  }
 
   // Input classes
   document.querySelectorAll(`#form-${formPrefix} .input.err`).forEach(el => {

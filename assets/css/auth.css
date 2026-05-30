@@ -84,7 +84,7 @@
     0 24px 64px rgba(0,0,0,0.5),
     0 2px 0 rgba(255,255,255,0.03) inset,
     0 -1px 0 rgba(0,0,0,0.3) inset;
-  /* Tilt effect uchun */
+  /* Tilt effect uchun (desktop'da mouse move event'dan) — auth.js da initCardTilt() */
   transform-style: preserve-3d;
   transform: perspective(1000px) rotateX(0deg) rotateY(0deg);
   transition: transform 0.6s var(--ease-out), box-shadow var(--t-slow);
@@ -182,6 +182,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
+  transition: opacity 0.18s var(--ease-out);
 }
 
 /* Animatsiyalar (tab almashtirish) */
@@ -204,11 +205,8 @@
   pointer-events: none;
 }
 
-/* Ikki ustunli qator */
-.form-row-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-3);
+.auth-form.hidden {
+  display: none !important;
 }
 
 /* Form group */
@@ -216,6 +214,28 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  margin-bottom: 2px;
+}
+
+/* Ikki ustunli qator */
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 520px) {
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Form label ──────────────────────────────────────────────── */
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 2px;
 }
 
 
@@ -417,23 +437,29 @@
 
 /* ── Xatolar ─────────────────────────────────────────────────── */
 .field-error {
-  display: flex;
-  align-items: center;
-  gap: var(--space-1);
+  display: block;
   font-size: 12px;
   color: var(--red-light);
-  padding: 2px 0;
+  padding: 4px 0;
+  margin-top: 2px;
+  min-height: 16px;
+  line-height: 1.4;
+  font-weight: 500;
 }
 
 .field-error::before {
-  content: '⚠';
+  content: '⚠ ';
   font-size: 11px;
-  flex-shrink: 0;
+  margin-right: 2px;
+}
+
+.field-error[hidden] {
+  display: none !important;
 }
 
 .global-error {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-2);
   padding: var(--space-3) var(--space-4);
   background: var(--red-alpha);
@@ -442,12 +468,19 @@
   font-size: 13px;
   color: var(--red-light);
   animation: fadeInUp 0.2s var(--ease-out);
+  line-height: 1.5;
+  word-break: break-word;
 }
 
 .global-error::before {
   content: '🚫';
   font-size: 14px;
   flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.global-error[hidden] {
+  display: none !important;
 }
 
 

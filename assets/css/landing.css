@@ -887,7 +887,9 @@
 
 .l-price-cta {
   margin-top: auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 38px;
   border-radius: var(--r-md);
@@ -896,9 +898,6 @@
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: all var(--t-base);
   border: 1px solid transparent;
 }
